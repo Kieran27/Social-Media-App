@@ -8,4 +8,5 @@ const CommentSchema = new Schema({
   postId: { type: String },
 });
 
-export default mongoose.model("comments", CommentSchema);
+export default mongoose.models.comments ||
+  mongoose.model("comments", CommentSchema);

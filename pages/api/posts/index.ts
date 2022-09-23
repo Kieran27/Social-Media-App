@@ -16,21 +16,20 @@ handler
     Extra -- Find Posts whose author ID matches User Id and posts
     that user is friends with
     */
-    console.log("hello");
     post
       .find()
       .sort({ timestamp: "descending" })
-      .populate("comments")
+      .populate("users")
       .exec((err, data) => {
         if (err) {
-          res.status(404);
-          res.json({ error: err });
+          return res.status(404).json({ error: err });
         }
         return res.json({ posts: data });
       });
   })
 
   // Create New Post
+
   .post(async (req: NextApiRequest, res: NextApiResponse) => {
     // Connect to db
     await dbConnect();

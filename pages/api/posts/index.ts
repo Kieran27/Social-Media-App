@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { authenticate } from "../../../api - lib/middleware/authentication";
 import dbConnect from "../../../api - lib/middleware/mongo_connect";
 import post from "../../../api - lib/models/post";
+import user from "../../../api - lib/models/user";
 import nextConnect from "next-connect";
+import comment from "../../../api - lib/models/comment";
 
 const handler = nextConnect();
 
@@ -19,6 +21,8 @@ handler
     post
       .find()
       .sort({ timestamp: "descending" })
+      .populate({ path: "author", model: user })
+      .populate({ path: "comments", model: comment })
       .exec((err, data) => {
         if (err) {
           return res.status(404).json({ error: err });

@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { authenticate } from "../../../api - lib/middleware/authentication";
 import dbConnect from "../../../api - lib/middleware/mongo_connect";
 import post from "../../../api - lib/models/post";
+import user from "../../../api - lib/models/user";
 import comment from "../../../api - lib/models/comment";
 import nextConnect from "next-connect";
 
@@ -19,7 +20,10 @@ handler
     const { post_id } = query;
 
     try {
-      const returnedPost = await post.findById(post_id);
+      const returnedPost = await post
+        .findById(post_id)
+        .populate({ path: "author", model: user })
+        .populate({ path: "comments", model: comment });
 
       res.json({ post: returnedPost });
     } catch (error) {

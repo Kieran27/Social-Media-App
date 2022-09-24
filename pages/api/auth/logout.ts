@@ -9,7 +9,7 @@ export default nextConnect<NextApiRequest, NextApiResponse>().post(
     await dbConnect();
 
     // Get refreshToken
-    const refreshToken = req.headers.authorization;
+    const refreshToken: string | undefined = req.headers.authorization;
     // Search database where username = username model
     const loggedOutUser = await user.findOneAndUpdate(
       { refreshTokens: refreshToken },

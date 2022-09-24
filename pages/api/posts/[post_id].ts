@@ -61,7 +61,8 @@ handler
     // Update post
     try {
       const updatedResult = await post.findByIdAndUpdate(post_id, {
-        content,
+        content: content,
+        lastUpdatedAt: new Date().toISOString(),
       });
       res.json({ updatedResult });
     } catch (error) {

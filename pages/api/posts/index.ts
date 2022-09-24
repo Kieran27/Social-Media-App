@@ -19,7 +19,6 @@ handler
     post
       .find()
       .sort({ timestamp: "descending" })
-      .populate("users")
       .exec((err, data) => {
         if (err) {
           return res.status(404).json({ error: err });
@@ -40,6 +39,7 @@ handler
       const newPost = post.create({
         author: user_id,
         content: content,
+        lastUpdatedAt: new Date().toISOString(),
         timestamp: new Date().toISOString(),
       });
       return res.status(200).json({ newPost: newPost });

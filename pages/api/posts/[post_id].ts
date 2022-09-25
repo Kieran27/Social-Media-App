@@ -22,7 +22,7 @@ handler
     try {
       const returnedPost = await post
         .findById(post_id)
-        .populate({ path: "author", model: user })
+        .populate({ path: "author", model: user, select: "username" })
         .populate({ path: "comments", model: comment });
 
       res.json({ post: returnedPost });
@@ -39,13 +39,21 @@ handler
     const query = req.query;
     const { post_id } = query;
 
+    // Get user_id from req.body
+    const { user_id } = req.body;
+
     try {
       await post.findByIdAndDelete(post_id);
 
       // Find and delete all comments with corresponding postId
       await comment.deleteMany({ postId: post_id });
 
-      res.json({ message: "Post Deleted!" });
+      // Find and delete post_id from user's posts array
+      await user.findByIdAndUpdate(user_id, {
+        $pull: { posts: post_id },
+      });
+
+      res.json({ message: `Post ${post_id} Deleted!` });
     } catch (error) {
       res.status(409).json({ error });
     }

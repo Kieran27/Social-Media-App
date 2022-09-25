@@ -8,7 +8,7 @@ const handler = nextConnect();
 
 handler
   .use(authenticate)
-  // Get all friend requests
+  // Get all friend requests of current user
   .get(async (req: NextApiRequest, res: NextApiResponse) => {
     // Connect to db
     await dbConnect();
@@ -22,7 +22,11 @@ handler
       const friendRequests = await user
         .findById(user_id)
         .select("friendRequests")
-        .populate({ path: "friendRequests", model: user });
+        .populate({
+          path: "friendRequests",
+          model: user,
+          select: "username email",
+        });
 
       res.json({ friendRequests });
     } catch (error) {

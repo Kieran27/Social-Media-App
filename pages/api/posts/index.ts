@@ -21,7 +21,7 @@ handler
     post
       .find()
       .sort({ timestamp: "descending" })
-      .populate({ path: "author", model: user })
+      .populate({ path: "author", model: user, select: "username" })
       .populate({ path: "comments", model: comment })
       .exec((err, data) => {
         if (err) {
@@ -38,15 +38,27 @@ handler
     await dbConnect();
     // Validate req body
     const { content, user_id } = req.body;
-    console.log(content, user_id);
+    // Create newPost and update db
     try {
-      const newPost = post.create({
-        author: user_id,
-        content: content,
-        lastUpdatedAt: new Date().toISOString(),
-        timestamp: new Date().toISOString(),
-      });
-      return res.status(200).json({ newPost: newPost });
+      const newPost = await post.create(
+        {
+          author: user_id,
+          content: content,
+          lastUpdatedAt: new Date().toISOString(),
+          timestamp: new Date().toISOString(),
+        },
+        async (error: any, post: any) => {
+          if (error) {
+            throw new Error(error);
+          }
+          const newlyCreatedPostId = post._id;
+          // Add newlyCreatedPostId to user's post array
+          await user.findByIdAndUpdate(user_id, {
+            $push: { posts: newlyCreatedPostId },
+          });
+          return res.status(200).json({ newPost: post });
+        }
+      );
     } catch (error) {
       return res.status(409).json({ error });
     }

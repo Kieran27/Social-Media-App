@@ -1,9 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { authenticate } from "../../../../api - lib/middleware/authentication";
 import dbConnect from "../../../../api - lib/middleware/mongo_connect";
-import post from "../../../../api - lib/models/post";
 import user from "../../../../api - lib/models/user";
-import comment from "../../../../api - lib/models/comment";
 import nextConnect from "next-connect";
 
 const handler = nextConnect();

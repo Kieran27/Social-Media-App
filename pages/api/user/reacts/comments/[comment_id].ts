@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { authenticate } from "../../../../../api - lib/middleware/authentication";
 import dbConnect from "../../../../../api - lib/middleware/mongo_connect";
 import nextConnect from "next-connect";
-import post from "../../../../../api - lib/models/post";
+import comment from "../../../../../api - lib/models/comment";
 
 const handler = nextConnect();
 
@@ -13,9 +13,9 @@ handler
     // Connect to db
     await dbConnect();
 
-    // Query post_id from req params
+    // Query comment_id from req params
     const query = req.query;
-    const { post_id } = query;
+    const { comment_id } = query;
     const { user_id } = req.body;
 
     // Check if userId exists
@@ -25,7 +25,7 @@ handler
 
     // Get selectedPost and return likes array
     try {
-      const selectedPost = await post.findById(post_id);
+      const selectedPost = await comment.findById(comment_id);
       const likesArray: string[] = selectedPost[0].likes;
 
       // Check if user_id exists within likes array and react accordingly
@@ -37,7 +37,7 @@ handler
           (userId: string) => userId !== user_id
         );
 
-        const updatedPost = await post.findByIdAndUpdate(post_id, {
+        const updatedPost = await comment.findByIdAndUpdate(comment_id, {
           likes: filteredLikesArray,
         });
 
@@ -46,7 +46,7 @@ handler
         // If id doesn't exist - add id to end of array and update post
         const updatedLikesArray = [...likesArray, user_id];
 
-        const updatedPost = await post.findByIdAndUpdate(post_id, {
+        const updatedPost = await comment.findByIdAndUpdate(comment_id, {
           likes: updatedLikesArray,
         });
 

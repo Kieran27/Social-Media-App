@@ -12,6 +12,7 @@ export const authenticate = async (
   if (!token) {
     return res.status(401).json({ error: "Token not found!" });
   }
+
   // Authenticate token
   try {
     const user = await JWT.verify(token, process.env.SECRET);

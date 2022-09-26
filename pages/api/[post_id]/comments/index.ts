@@ -25,7 +25,7 @@ handler
       .populate({ path: "author", model: user, select: "username" })
       .exec((err, data) => {
         if (err) {
-          return res.status(404).json({ error: err });
+          return res.status(400).json({ error: err });
         }
         return res.json({ posts: data });
       });
@@ -68,7 +68,7 @@ handler
           await post.findByIdAndUpdate(post_id, {
             $push: { comments: newlyCreatedCommentId },
           });
-          return res.status(200).json({ newComment: comment });
+          return res.status(201).json({ newComment: comment });
         }
       );
     } catch (error) {

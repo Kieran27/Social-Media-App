@@ -56,7 +56,7 @@ handler
           await user.findByIdAndUpdate(user_id, {
             $push: { posts: newlyCreatedPostId },
           });
-          return res.status(200).json({ newPost: post });
+          return res.status(201).json({ newPost: post });
         }
       );
     } catch (error) {

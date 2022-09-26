@@ -54,7 +54,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     if (err) return res.status(400).json({ error: err });
   });
 
-  return res.json({
+  return res.status(201).json({
     accessToken,
     refreshToken,
   });

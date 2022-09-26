@@ -14,13 +14,10 @@ handler
   .put(async (req: NextApiRequest, res: NextApiResponse) => {
     // Connect to db
     await dbConnect();
-    console.log("comment_id");
 
     // Query post_id and comment_id from req params
     const query = req.query;
     const { comment_id } = query;
-
-    console.log(comment_id);
 
     // Get updated content and user_id from req body
     const { content } = req.body;

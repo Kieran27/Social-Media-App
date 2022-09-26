@@ -53,7 +53,7 @@ handler
         $pull: { posts: post_id },
       });
 
-      res.json({ message: `Post ${post_id} Deleted!` });
+      res.status(200).json({ message: `Post ${post_id} Deleted!` });
     } catch (error) {
       res.status(409).json({ error });
     }

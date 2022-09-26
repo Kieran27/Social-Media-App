@@ -54,7 +54,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Push refresh token into user token array
 
-  res.json({
+  res.status(200).json({
     accessToken: accessToken,
     refreshToken: refreshToken,
     message: "Successfully Logged In!",

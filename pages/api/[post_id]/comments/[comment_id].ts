@@ -11,13 +11,16 @@ const handler = nextConnect();
 handler
   .use(authenticate)
   // Update selected comment
-  .get(async (req: NextApiRequest, res: NextApiResponse) => {
+  .put(async (req: NextApiRequest, res: NextApiResponse) => {
     // Connect to db
     await dbConnect();
+    console.log("comment_id");
 
     // Query post_id and comment_id from req params
     const query = req.query;
     const { comment_id } = query;
+
+    console.log(comment_id);
 
     // Get updated content and user_id from req body
     const { content } = req.body;
@@ -34,17 +37,16 @@ handler
           if (error) {
             throw new Error(error);
           }
-          return res.status(200).json({ newComment: comment });
+          return res.status(200).json({ newComment: updatedComment });
         }
       );
-      return res.status(200).json({ updatedComment: updatedComment });
     } catch (error) {
       return res.status(409).json({ error });
     }
   })
 
   // Delete selected comment
-  .post(async (req: NextApiRequest, res: NextApiResponse) => {
+  .delete(async (req: NextApiRequest, res: NextApiResponse) => {
     // Connect to db
     await dbConnect();
     // Validate req body

@@ -20,7 +20,7 @@ handler
     const { comment_id } = query;
 
     // Get updated content and user_id from req body
-    const { content } = req.body;
+    const { content }: { content: string } = req.body;
 
     // Update comment with updated content and updated timestamp
     try {

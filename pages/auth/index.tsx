@@ -1,17 +1,10 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import { useAuth } from "../../hooks/useAuth";
-import axios from "../../frontend - lib/axiosCalls/axiosInstance";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import login from "../../frontend - lib/axiosCalls/login";
 import toast, { Toaster } from "react-hot-toast";
-
-type LoginVariables = {
-  email: string;
-  password: string;
-};
 
 interface ILogin {
   email: string;
@@ -19,47 +12,34 @@ interface ILogin {
 }
 
 const Auth = () => {
+  const { handleLogin } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginVariables>();
-  const [formData, setData] = useState({
-    email: "",
-    password: "",
-  });
-
-  /*
-  const login = async () => {
-    const response = await axios.post("/auth/login", {
-      email,
-      password,
-    });
-    console.log(response);
-    return response;
-  };
-  */
+  } = useForm<ILogin>();
 
   const mutation = useMutation(
-    (data: ILogin) => login(data.email, data.password),
+    (data: ILogin) => handleLogin(data.email, data.password),
     {
       onSuccess: (data) => {
         console.log(data);
-        toast("Here is your toast.", {
-          id: "nimious",
+        toast.success("Login Successful!.", {
+          id: "loginSuccess",
         });
       },
       onError: (error) => {
         console.log(error);
         const message = error.response.data.error;
-        toast(`${message}.`, {
-          id: "ryn",
+        toast.error(`${message}.`, {
+          id: "loginError",
         });
       },
     }
   );
 
-  const onSubmit: SubmitHandler<LoginVariables> = (data) => {
+  const onSubmit: SubmitHandler<ILogin> = (data) => {
     const { email, password } = data;
     console.log(data);
     mutation.mutate({ email: email, password: password });

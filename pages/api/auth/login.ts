@@ -57,7 +57,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json({
     accessToken: accessToken,
     refreshToken: refreshToken,
-    message: "Successfully Logged In!",
+    id: loggedUser[0]._id,
   });
 });
 

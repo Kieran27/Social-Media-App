@@ -19,9 +19,9 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Search database for user email
   const loggedUser = await user.find({ email: email });
-  if (user.length === 0) {
+  if (loggedUser.length === 0) {
     return res.status(401).json({
-      error: "User does not exist!",
+      error: "Email Invalid: user does not exist!",
     });
   }
 

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import login from "../frontend - lib/axiosCalls/login";
 import { useRouter } from "next/router";
+import { useMutation } from "react-query";
 import axios from "axios";
 
 /* 
@@ -8,35 +9,23 @@ Custom hook wrapping context provider to handle auth
 functions - login, signup and logout.
 */
 
-const AuthContext = createContext<string | null>(null);
+interface AppContext {
+  login?: (email: string, password: string) => void;
+}
+
+const AuthContext = createContext<AppContext | null>(null);
 
 // wrapper for the provider
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
-  const [errorsArray, setErrorsArray] = useState(null);
   const [user, setUser] = useState(null);
 
   const router = useRouter();
   // Handle login
-  const login = async (email: string, password: string) => {
-    try {
-      const user = await login(email, password);
-    } catch (error: any) {
-      setErrorMessage(error);
-    }
+  const login = (email: string, password: string) => {
+    console.log("login");
     // Retrieve refresh token
-
-    return "logged in!";
-  };
-
-  const signup = (
-    email: string,
-    username: string,
-    password: string,
-    passwordConfirm: string
-  ) => {
-    return true;
   };
 
   const logout = () => {
@@ -58,9 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={"hello world"}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ login }}>{children}</AuthContext.Provider>
   );
 };
 

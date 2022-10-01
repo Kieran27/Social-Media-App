@@ -1,7 +1,63 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useAuth } from "../../hooks/useAuth";
+import axios from "../../frontend - lib/axiosCalls/axiosInstance";
+import { useState } from "react";
+import { useMutation } from "react-query";
+import login from "../../frontend - lib/axiosCalls/login";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+
+type LoginVariables = {
+  email: string;
+  password: string;
+};
+
 const Auth = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  /*
+  const login = async () => {
+    const response = await axios.post("/auth/login", {
+      email,
+      password,
+    });
+    console.log(response);
+    return response;
+  };
+  */
+
+  const handleChange = (e: any) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setEmail(value);
+  };
+
+  const mutation = useMutation(() => login(email, password), {
+    onSuccess: (data) => {
+      console.log(data);
+      toast("Here is your toast.", {
+        id: "nimious",
+      });
+    },
+    onError: (error) => {
+      const message = error.response.data;
+      toast(`${message}.`, {
+        id: "ryn",
+      });
+    },
+  });
+
+  const changePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    mutation.mutate();
+  };
+
   return (
     <>
       <Head>
@@ -11,47 +67,58 @@ const Auth = () => {
       </Head>
 
       <div className="flex flex-col justify-center items-center min-h-screen min-w-full text-4xl">
-        <h1>Login</h1>
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4 flex flex-col">
-          <div className="mb-4">
-            <label className="block text-grey-darker text-sm font-bold mb-2">
-              Username
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-              id="username"
-              type="text"
-              placeholder="Username"
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-grey-darker text-sm font-bold mb-2">
-              Password
-            </label>
-            <input
-              className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-              id="password"
-              type="password"
-              placeholder="******************"
-            />
-            <p className="text-red text-xs italic">Please choose a password.</p>
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-              type="button"
-            >
-              Sign In
-            </button>
-            <a
-              className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker"
-              href="#"
-            >
-              Forgot Password?
-            </a>
-          </div>
+        <h2>Login</h2>
+        <div className="bg-white shadow-md w-3/4 md:w-1/2 rounded px-8 pt-6 pb-8 mb-4 mt-4 flex flex-col">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-grey-darker text-sm font-bold mb-2">
+                Username
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker text-sm"
+                name="email"
+                id="email"
+                value={email}
+                onChange={handleChange}
+                type="text"
+                placeholder="Username"
+              />
+            </div>
+            <div className="mb-6">
+              <label className="block text-grey-darker text-sm font-bold mb-2">
+                Password
+              </label>
+              <input
+                className="shadow appearance-none border border-red text-sm rounded w-full py-2 px-3 mb-3"
+                name="password"
+                id="password"
+                value={password}
+                onChange={changePassword}
+                type="password"
+                placeholder="******************"
+              />
+              <p className="text-red text-xs italic">
+                Please choose a password.
+              </p>
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                className="bg-blue-300 text-lg hover:bg-blue-100 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+              >
+                Sign In
+              </button>
+            </div>
+          </form>
+          <a
+            className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker"
+            href="#"
+          >
+            Forgot Password?
+          </a>
         </div>
       </div>
+      <Toaster />
     </>
   );
 };

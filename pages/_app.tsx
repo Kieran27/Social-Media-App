@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import React from "react";
 import type { AppProps } from "next/app";
+import { AuthProvider } from "../hooks/useAuth";
 import { QueryClient, QueryClientProvider, Hydrate } from "react-query";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -8,7 +9,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </Hydrate>
     </QueryClientProvider>
   );

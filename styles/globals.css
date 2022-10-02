@@ -18,6 +18,22 @@ a {
   box-sizing: border-box;
 }
 
+.slanted {
+  position: relative;
+  height: 100vh;
+}
+
+.slanted:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 0;
+  width: 200px;
+  background: #04331d;
+  transform: rotate(-3deg);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

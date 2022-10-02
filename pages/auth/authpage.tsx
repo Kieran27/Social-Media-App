@@ -13,8 +13,10 @@ const AuthPage = () => {
 
   return (
     <>
-      <section className="flex">
-        <div className=" hidden xl:flex items-center min-h-full justify-center w-1/2 flex-col">
+      <section className="flex overflow-hidden">
+        <div className="slanted hidden xl:flex items-center min-h-full justify-center w-1/2 flex-col bg-emerald-100 relative">
+          <div className="w-1/6 h-full absolute right-0 top-0 skew-x-12 bg-emerald-100 "></div>
+          <div className="w-1/6 h-full absolute right-0 top-0 -skew-x-12 bg-emerald-100 "></div>
           <h2 className="text-6xl font-bold tracking-wider">Birber</h2>
           <p className="w-1/2 text-center mt-5 text-lg mb-6">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
@@ -28,7 +30,7 @@ const AuthPage = () => {
             height={500}
           />
         </div>
-        <div className=" w-full xl:w-1/2">
+        <div className=" w-full xl:w-1/2 ">
           {showLogin ? (
             <LoginForm changeAuthForm={changeAuthForm} />
           ) : (

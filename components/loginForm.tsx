@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
-const LoginForm = () => {
+interface IProps {
+  changeAuthForm: () => void;
+}
+
+const LoginForm = ({ changeAuthForm }: IProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const displayShowPassword: () => void = () => {
@@ -62,10 +67,19 @@ const LoginForm = () => {
             <input
               type="submit"
               value="Login"
-              className="bg-emerald-500 text-white font-semibold py-2 px-6 rounded-2xl text-l"
+              className="bg-emerald-500 cursor-pointer w-full text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
             />
           </div>
         </form>
+      </div>
+      <div className="flex flex-col justify-center">
+        <span className="text-l">Don&apos;t have an account?</span>
+        <button
+          className="text-blue-400 underline text-l"
+          onClick={changeAuthForm}
+        >
+          Register Here
+        </button>
       </div>
     </section>
   );

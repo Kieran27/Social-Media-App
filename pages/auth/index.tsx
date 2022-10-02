@@ -13,6 +13,7 @@ interface ILogin {
 
 const Auth = () => {
   const { handleLogin } = useAuth();
+  const [isRegister, setIsRegister] = useState(false);
 
   const {
     register,

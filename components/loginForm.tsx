@@ -63,11 +63,11 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
               Show Password
             </label>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-center">
             <input
               type="submit"
               value="Login"
-              className="bg-emerald-500 cursor-pointer w-full text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
+              className="bg-emerald-500 cursor-pointer w-full md:w-2/3 lg:w-1/3 xl:w-1/4 text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
             />
           </div>
         </form>

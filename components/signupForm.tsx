@@ -68,7 +68,7 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
               htmlFor="confirmPassword"
               className="block text-gray-700 text-md font-bold mb-2"
             >
-              Confrim Password <span className="text-red-500 text-md">*</span>
+              Confirm Password <span className="text-red-500 text-md">*</span>
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-3 px-4 text-grey-darker"
@@ -90,25 +90,25 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
               htmlFor="showPassword"
               className="block text-gray-700 text-sm"
             >
-              Show Password
+              Show Passwords
             </label>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-center">
             <input
               type="submit"
-              value="Login"
-              className="bg-emerald-500 cursor-pointer w-full text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
+              value="Sign up"
+              className="bg-emerald-500 cursor-pointer w-full md:w-2/3 lg:w-1/3 xl:w-1/4 text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
             />
           </div>
         </form>
       </div>
       <div className="flex flex-col justify-center">
-        <span className="text-l">Don&apos;t have an account?</span>
+        <span className="text-l">Already have an account?</span>
         <button
           className="text-blue-400 underline text-l"
           onClick={changeAuthForm}
         >
-          Register Here
+          Login here
         </button>
       </div>
     </section>

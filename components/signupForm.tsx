@@ -11,9 +11,9 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
     setShowPassword((showPassword) => !showPassword);
   };
   return (
-    <section className="flex flex-col justify-center items-center min-h-[95%] xl:min-h-screen min-w-full">
+    <section className="flex flex-col justify-center items-center min-h-[89%] xl:min-h-screen min-w-full">
       <h2 className="text-5xl font-semibold tracking-wide">Sign up</h2>
-      <div className="bg-white shadow-md w-10/12 md:w-6/12 xl:w-8/12 2xl:w-6/12 rounded px-8 pt-6 pb-8 mb-4 mt-4 flex flex-col">
+      <div className="bg-white shadow-md w-10/12 md:w-6/12 xl:w-8/12 2xl:w-6/12 rounded px-4 md:px-8 pt-6 pb-8 mb-4 mt-4 flex flex-col">
         <form action="">
           <div className="mb-4">
             <label

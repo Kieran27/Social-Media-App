@@ -1,22 +1,70 @@
 import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useMutation } from "react-query";
+import { useForm, SubmitHandler } from "react-hook-form";
+import login from "../frontend - lib/axiosCalls/login";
+import toast, { Toaster } from "react-hot-toast";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
 interface IProps {
   changeAuthForm: () => void;
 }
 
+interface ILogin {
+  email: string;
+  password: string;
+}
+
 const LoginForm = ({ changeAuthForm }: IProps) => {
+  // Define state
   const [showPassword, setShowPassword] = useState(false);
 
+  // Custom hooks
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILogin>();
+  const { handleLogin } = useAuth();
+
+  // Mutation
+  const mutation = useMutation(
+    (data: ILogin) => login(data.email, data.password),
+    {
+      onSuccess: (data) => {
+        /*
+        toast.success("Login Successful!.", {
+          id: "loginSuccess",
+        });
+        */
+        handleLogin(data);
+      },
+      onError: (error) => {
+        console.log(error);
+        const message = error.response.data.error;
+        toast.error(`${message}.`, {
+          id: "loginError",
+        });
+      },
+    }
+  );
+
+  // Component functions
   const displayShowPassword: () => void = () => {
     setShowPassword((showPassword) => !showPassword);
+  };
+
+  const onSubmit: SubmitHandler<ILogin> = (data) => {
+    const { email, password } = data;
+    console.log(data);
+    mutation.mutate({ email: email, password: password });
   };
 
   return (
     <section className="flex flex-col justify-center items-center min-h-[89%] xl:min-h-screen min-w-full">
       <h2 className="text-5xl font-semibold tracking-wide">Login</h2>
       <div className="bg-white shadow-md w-10/12 md:w-6/12 xl:w-8/12 2xl:w-6/12 rounded px-4 md:px-8 pt-6 pb-8 mb-4 mt-4 flex flex-col">
-        <form action="">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -26,12 +74,15 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-3 px-4 text-grey-darker"
+              {...register("email", { required: true })}
               type="text"
               placeholder="Enter your email"
             />
-            <span className=" block mt-3 text-sm  text-red-500">
-              * This field is required
-            </span>
+            {errors.email && (
+              <span className=" block mt-3 text-sm  text-red-500">
+                * This field is required
+              </span>
+            )}
           </div>
           <div className="mb-4">
             <label
@@ -42,12 +93,15 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full mb-2 py-3 px-4 text-grey-darker"
+              {...register("password", { required: true })}
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
             />
-            <span className=" block mt-1 text-sm  text-red-500">
-              * This field is required
-            </span>
+            {errors.password && (
+              <span className=" block mt-1 text-sm  text-red-500">
+                * This field is required
+              </span>
+            )}
           </div>
           <div className="flex items-center justify-end gap-2 mb-3">
             <input
@@ -81,6 +135,7 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
           Register Here
         </button>
       </div>
+      <Toaster />
     </section>
   );
 };

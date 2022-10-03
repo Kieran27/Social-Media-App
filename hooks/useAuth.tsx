@@ -12,7 +12,7 @@ type AppContext = {
   logout: HandleLogout;
 };
 
-type HandleLogin = (email: string, password: string) => void;
+type HandleLogin = (data: any) => void;
 type HandleLogout = () => void;
 
 const AuthContext = createContext<AppContext>({} as AppContext);
@@ -25,15 +25,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   // Handle login
-  const handleLogin: HandleLogin = async (email: string, password: string) => {
-    // make call to api
-    const userData = await login(email, password);
+  const handleLogin: HandleLogin = async (userData: any) => {
     // save response in state
     setUser(userData);
     // save response in local Storage after stringifying it
     localStorage.setItem("token", JSON.stringify(userData));
     // Redirect to home page
-    router.push("/");
+    router.push("/home");
   };
 
   const logout = () => {

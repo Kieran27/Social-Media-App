@@ -72,7 +72,7 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-3 px-4 text-grey-darker"
-              type="text"
+              type={showPassword ? "text" : "password"}
               placeholder="Confirm Password"
             />
             <span className=" block mt-3 text-sm  text-red-500">

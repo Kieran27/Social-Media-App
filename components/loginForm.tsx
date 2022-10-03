@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useMutation } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { loginSchema } from "../frontend - lib/yupSchemas";
+import { yupResolver } from "@hookform/resolvers/yup";
 import login from "../frontend - lib/axiosCalls/login";
 import toast, { Toaster } from "react-hot-toast";
 import { IoIosArrowRoundForward } from "react-icons/io";
@@ -24,7 +26,9 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILogin>();
+  } = useForm<ILogin>({
+    resolver: yupResolver(loginSchema),
+  });
   const { handleLogin } = useAuth();
 
   // Mutation
@@ -80,7 +84,7 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
             />
             {errors.email && (
               <span className=" block mt-3 text-sm  text-red-500">
-                * This field is required
+                {`* ${errors.email?.message}`}
               </span>
             )}
           </div>
@@ -99,7 +103,7 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
             />
             {errors.password && (
               <span className=" block mt-1 text-sm  text-red-500">
-                * This field is required
+                {` * ${errors.password?.message}`}
               </span>
             )}
           </div>

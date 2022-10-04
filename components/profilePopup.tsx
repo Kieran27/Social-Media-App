@@ -15,7 +15,7 @@ const ProfilePopup = () => {
           <li>
             <a
               href=""
-              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-gray-100"
+              className="flex justify-between items-center py-3 px-3 rounded-xl border-b border-t hover:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
@@ -31,7 +31,7 @@ const ProfilePopup = () => {
           <li>
             <a
               href=""
-              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-gray-100"
+              className="flex justify-between items-center py-3 px-3 rounded-xl border-b hover:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
@@ -47,7 +47,7 @@ const ProfilePopup = () => {
           <li>
             <a
               href="https://github.com/Kieran27/Social-Media-App"
-              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-gray-100"
+              className="flex justify-between items-center py-3 px-3 rounded-xl border-b hover:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
@@ -61,7 +61,7 @@ const ProfilePopup = () => {
             </a>
           </li>
           <li>
-            <button className="flex justify-between items-center py-3 px-3 rounded-xl w-full hover:bg-gray-100">
+            <button className="flex justify-between items-center py-3 px-3 rounded-xl border-b w-full hover:bg-gray-100">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
                   <IoLogOutOutline className="text-3xl" />

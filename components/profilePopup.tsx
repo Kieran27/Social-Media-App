@@ -15,7 +15,7 @@ const ProfilePopup = () => {
           <li>
             <a
               href=""
-              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-slate-200"
+              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
@@ -31,7 +31,7 @@ const ProfilePopup = () => {
           <li>
             <a
               href=""
-              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-slate-200"
+              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
@@ -47,7 +47,7 @@ const ProfilePopup = () => {
           <li>
             <a
               href=""
-              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-slate-200"
+              className="flex justify-between items-center py-3 px-3 rounded-xl hover:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">

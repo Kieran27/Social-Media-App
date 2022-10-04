@@ -5,6 +5,7 @@ import AuthFooter from "../../components/authFooter";
 import Image from "next/image";
 import BirdImage from "../../assets/birb.svg";
 import AuthHero from "../../components/authHero";
+import MobileAuthHero from "../../components/mobileAuthHero";
 
 const AuthPage = () => {
   const [showLogin, setShowLogin] = useState(true);
@@ -30,6 +31,7 @@ const AuthPage = () => {
             Birber Talk with your friends
           </div>
             */}
+          <MobileAuthHero />
           {showLogin ? (
             <LoginForm changeAuthForm={changeAuthForm} />
           ) : (

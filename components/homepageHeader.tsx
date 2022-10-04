@@ -2,14 +2,30 @@ import { useState } from "react";
 import Image from "next/image";
 import BirdImage from "../assets/birb.svg";
 import ProfilePopup from "./profilePopup";
+import FriendRequestCount from "./friendRequestCount";
+import FriendRequestsPopup from "./friendRequestsPopup";
 import { IoIosPerson, IoIosChatbubbles } from "react-icons/io";
 import { IoPeople, IoPerson } from "react-icons/io5";
 
 const HomepageHeader = () => {
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const [showFriendRequestsPopup, setShowFriendsRequestsPopup] =
+    useState(false);
 
-  const toggleProfilePopup: (e: any) => void = () => {
+  const toggleProfilePopup: () => void = () => {
+    if (showFriendRequestsPopup) {
+      toggleFriendRequestsPopup();
+    }
     setShowProfilePopup((showProfilePopup) => !showProfilePopup);
+  };
+
+  const toggleFriendRequestsPopup: () => void = () => {
+    if (showProfilePopup) {
+      toggleProfilePopup();
+    }
+    setShowFriendsRequestsPopup(
+      (showFriendRequestsPopup) => !showFriendRequestsPopup
+    );
   };
 
   return (
@@ -19,10 +35,14 @@ const HomepageHeader = () => {
       </div>
       <div>
         <ul className="flex items-center gap-5">
-          <li>
-            <button className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
+          <li className="relative">
+            <button
+              onClick={toggleFriendRequestsPopup}
+              className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center"
+            >
               <IoPeople className="text-xl" />
             </button>
+            <FriendRequestCount />
           </li>
           <li>
             <button className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
@@ -30,11 +50,15 @@ const HomepageHeader = () => {
             </button>
           </li>
           <li>
-            <div onClick={toggleProfilePopup} className="relative">
-              <button className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
+            <div className="relative">
+              <button
+                onClick={toggleProfilePopup}
+                className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center"
+              >
                 <IoPerson className="text-xl" />
               </button>
               {showProfilePopup && <ProfilePopup />}
+              {showFriendRequestsPopup && <FriendRequestsPopup />}
             </div>
           </li>
         </ul>

@@ -1,6 +1,7 @@
 import React from "react";
-import HomepageHeader from "../../components/homepageHeader";
 import Head from "next/head";
+import HomepageHeader from "../../components/homepageHeader";
+import PostsContainer from "../../components/postsContainer";
 
 const HomePage = () => {
   return (
@@ -11,9 +12,9 @@ const HomePage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomepageHeader />
-      <div>
-        <div>This is the Home Page</div>
-      </div>
+      <main className="flex px-3 bg-slate-100 min-h-screen">
+        <PostsContainer />
+      </main>
     </>
   );
 };

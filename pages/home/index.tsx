@@ -22,9 +22,9 @@ const HomePage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomepageHeader />
-      <main className="bg-slate-100 min-h-screen pt-14">
-        <div className="max-w-[112.5rem] mx-auto">
-          <div className="flex justify-between ">
+      <main className="bg-slate-100 min-h-[calc(100vh-72px)] pt-14">
+        <div className="max-w-[100rem] mx-auto">
+          <div className="grid grid-cols-12 px-5 gap-8 w-full ">
             <ProfileWidget />
             <PostsContainer />
             <FriendSuggestions />

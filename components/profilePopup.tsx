@@ -1,13 +1,15 @@
-import React from "react";
+import { useAuth } from "../hooks/useAuth";
 import {
   IoPeople,
-  IoPerson,
   IoChevronForwardSharp,
   IoLogOutOutline,
   IoLogoGithub,
 } from "react-icons/io5";
 
 const ProfilePopup = () => {
+  // Grab logout function from auth hook
+  const { logout } = useAuth();
+
   return (
     <div className="absolute mt-2 right-0 bg-white shadow-xl border border-slate-200 px-3 py-5 rounded-md w-80">
       <div className="flex">
@@ -61,7 +63,10 @@ const ProfilePopup = () => {
             </a>
           </li>
           <li>
-            <button className="flex justify-between items-center py-3 px-3 rounded-xl border-b w-full hover:bg-gray-100">
+            <button
+              onClick={logout}
+              className="flex justify-between items-center py-3 px-3 rounded-xl border-b w-full hover:bg-gray-100"
+            >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
                   <IoLogOutOutline className="text-3xl" />

@@ -10,6 +10,13 @@ functions - login, signup and logout.
 type AppContext = {
   handleLogin: HandleLogin;
   logout: HandleLogout;
+  user: User | null;
+};
+
+type User = {
+  accessToken: string;
+  id: string;
+  refreshToken: string;
 };
 
 type HandleLogin = (data: any) => void;
@@ -40,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // Remove userToken from state variable
     setUser(null);
     // Redirect to login/auth page
-    router.push("/login");
+    router.push("/auth");
   };
 
   // Check on initial render if accessToken exists - if so set User
@@ -53,7 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ handleLogin, logout }}>
+    <AuthContext.Provider value={{ handleLogin, logout, user }}>
       {children}
     </AuthContext.Provider>
   );

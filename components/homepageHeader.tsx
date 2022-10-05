@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import BirdImage from "../assets/birb.svg";
 import ProfilePopup from "./profilePopup";
@@ -8,10 +8,16 @@ import { IoIosPerson, IoIosChatbubbles } from "react-icons/io";
 import { IoPeople, IoPerson } from "react-icons/io5";
 
 const HomepageHeader = () => {
+  // Define state
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [showFriendRequestsPopup, setShowFriendsRequestsPopup] =
     useState(false);
 
+  // Define Refs
+  const profilePopupRef = useRef();
+  const friendsPopupRef = useRef();
+
+  // Component Logic
   const toggleProfilePopup: () => void = () => {
     if (showFriendRequestsPopup) {
       toggleFriendRequestsPopup();

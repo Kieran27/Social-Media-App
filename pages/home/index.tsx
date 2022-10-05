@@ -1,9 +1,16 @@
 import React from "react";
 import Head from "next/head";
+import useRequireAuth from "../../hooks/useRequireAuth";
+import { useAuth } from "../../hooks/useAuth";
 import HomepageHeader from "../../components/homepageHeader";
 import PostsContainer from "../../components/postsContainer";
 
 const HomePage = () => {
+  // Hook will redirect if user not signed in
+
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <>
       <Head>

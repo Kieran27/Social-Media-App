@@ -14,10 +14,6 @@ const HomepageHeader = () => {
   const [showFriendRequestsPopup, setShowFriendsRequestsPopup] =
     useState(false);
 
-  // Define Refs
-  const profilePopupRef = useRef();
-  const friendsPopupRef = useRef();
-
   // Component Logic
   const toggleProfilePopup: () => void = () => {
     if (showFriendRequestsPopup) {

@@ -3,7 +3,7 @@ import React from "react";
 const PostsContainer = () => {
   return (
     <>
-      <section className="col-span-6 bg-white shadow-xl py-3 px-5 rounded-2xl border">
+      <section className="col-span-full lg:col-span-8 xl:col-span-6 bg-white shadow-xl py-3 px-5 rounded-2xl border">
         <h2>Posts</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus

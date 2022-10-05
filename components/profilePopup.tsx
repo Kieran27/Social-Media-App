@@ -1,4 +1,6 @@
 import { useAuth } from "../hooks/useAuth";
+import { useRef } from "react";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 import {
   IoPeople,
   IoChevronForwardSharp,
@@ -6,12 +8,25 @@ import {
   IoLogoGithub,
 } from "react-icons/io5";
 
-const ProfilePopup = () => {
+type TProps = {
+  profilePopupState: () => void;
+};
+
+const ProfilePopup = ({ profilePopupState }: TProps) => {
   // Grab logout function from auth hook
   const { logout } = useAuth();
 
+  // Create ref to register when the user clicks outside of component
+  const popupRef = useRef(null);
+
+  // Custom hook to close popup on outside clicks
+  useOnClickOutside(popupRef, () => profilePopupState());
+
   return (
-    <div className="absolute mt-2 right-0 bg-white shadow-xl border border-slate-200 px-3 py-5 rounded-md w-80">
+    <div
+      ref={popupRef}
+      className="absolute mt-2 right-0 bg-white shadow-xl border border-slate-200 px-3 py-5 rounded-md w-80"
+    >
       <div className="flex">
         <ul className="flex flex-col min-w-full">
           <li>

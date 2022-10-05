@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import BirdImage from "../assets/birb.svg";
 import ProfilePopup from "./profilePopup";
@@ -37,12 +38,19 @@ const HomepageHeader = () => {
   return (
     <header className="flex justify-between items-center px-6 py-4 shadow-lg">
       <div className="flex items-center">
-        <h1 className="text-3xl font-semibold tracking-wider">BirbSocial</h1>
+        <Link href="/home" className="cursor-pointer">
+          <a>
+            <h1 className="text-3xl font-semibold tracking-wider">
+              BirbSocial
+            </h1>
+          </a>
+        </Link>
       </div>
       <div>
         <ul className="flex items-center gap-5">
           <li className="relative">
             <button
+              aria-label="friend requests"
               onClick={toggleFriendRequestsPopup}
               className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center"
             >
@@ -51,20 +59,30 @@ const HomepageHeader = () => {
             <FriendRequestCount />
           </li>
           <li>
-            <button className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center">
+            <button
+              aria-label="messages"
+              className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center"
+            >
               <IoIosChatbubbles className="text-xl" />
             </button>
           </li>
           <li>
             <div className="relative">
               <button
+                aria-label="profile"
                 onClick={toggleProfilePopup}
                 className="w-10 h-10 bg-emerald-200 rounded-full flex items-center justify-center"
               >
                 <IoPerson className="text-xl" />
               </button>
-              {showProfilePopup && <ProfilePopup />}
-              {showFriendRequestsPopup && <FriendRequestsPopup />}
+              {showProfilePopup && (
+                <ProfilePopup profilePopupState={setShowProfilePopup} />
+              )}
+              {showFriendRequestsPopup && (
+                <FriendRequestsPopup
+                  friendRequestsPopup={setShowFriendsRequestsPopup}
+                />
+              )}
             </div>
           </li>
         </ul>

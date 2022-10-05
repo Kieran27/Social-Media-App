@@ -2,7 +2,7 @@ import { ReactEventHandler } from "react";
 import { useEffect } from "react";
 
 // Hook
-const useOnClickOutside = (ref, handler) => {
+const useOnClickOutside = (ref: React.RefObject<HTMLElement>, handler) => {
   useEffect(
     () => {
       const listener = (event: MouseEvent | TouchEvent) => {

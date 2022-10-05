@@ -32,7 +32,7 @@ const HomepageHeader = () => {
   };
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 shadow-lg">
+    <header className="flex justify-between items-center px-6 py-4">
       <div className="flex items-center">
         <Link href="/home" className="cursor-pointer">
           <a>

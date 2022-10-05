@@ -4,6 +4,9 @@ import useRequireAuth from "../../hooks/useRequireAuth";
 import { useAuth } from "../../hooks/useAuth";
 import HomepageHeader from "../../components/homepageHeader";
 import PostsContainer from "../../components/postsContainer";
+import ProfileWidget from "../../components/profileWidget";
+import FriendSuggestions from "../../components/friendSuggestions";
+import ProfilePopup from "../../components/profilePopup";
 
 const HomePage = () => {
   // Hook will redirect if user not signed in
@@ -19,8 +22,14 @@ const HomePage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomepageHeader />
-      <main className="flex px-3 bg-slate-100 min-h-screen">
-        <PostsContainer />
+      <main className="bg-slate-100 min-h-screen pt-14">
+        <div className="max-w-[112.5rem] mx-auto">
+          <div className="flex justify-between ">
+            <ProfileWidget />
+            <PostsContainer />
+            <FriendSuggestions />
+          </div>
+        </div>
       </main>
     </>
   );

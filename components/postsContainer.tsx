@@ -3,7 +3,7 @@ import React from "react";
 const PostsContainer = () => {
   return (
     <>
-      <section className="max-w-5xl mx-auto px-5 border">
+      <section className="w-3/5 bg-white shadow-xl py-3 px-5 rounded-2xl border">
         <h2>Posts</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus

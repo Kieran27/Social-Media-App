@@ -4,6 +4,7 @@ import {
   IoNewspaper,
   IoThumbsUpSharp,
 } from "react-icons/io5";
+import Link from "next/link";
 
 const ProfileWidget = () => {
   return (
@@ -14,9 +15,9 @@ const ProfileWidget = () => {
       </div>
       <div className="text-center mt-3">
         <h3 className="font-semibold text-2xl"> Profile User </h3>
-        <a href="" className="text-blue-600 underline">
-          View Profile
-        </a>
+        <Link href="user">
+          <a className="text-blue-600 underline">View Profile</a>
+        </Link>
       </div>
       <div className="flex justify-between items-center mt-3">
         <div className="flex items-center gap-4">

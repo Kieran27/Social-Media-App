@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   friendRequests: [{ type: Schema.Types.ObjectId, ref: "users" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "posts" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "comments" }],
+  joinedOn: { type: String, default: new Date().toISOString() },
 });
 
 export default mongoose.models.users || mongoose.model("users", UserSchema);

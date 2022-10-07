@@ -25,7 +25,7 @@ const ProfilePopup = ({ profilePopupState }: TProps) => {
   return (
     <div
       ref={popupRef}
-      className="absolute mt-2 right-0 bg-white shadow-xl border border-slate-200 px-3 py-5 rounded-md w-80"
+      className="absolute mt-2 right-0 bg-white shadow-xl border border-slate-200 px-3 py-5 rounded-md w-80 z-20"
     >
       <div className="flex">
         <ul className="flex flex-col min-w-full">

@@ -39,7 +39,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     username,
     email,
     password: hashedPassword,
-    refreshTokens: [],
+    joinedOn: new Date().toISOString(),
   });
 
   const accessToken = await JWT.sign({ username }, process.env.SECRET, {

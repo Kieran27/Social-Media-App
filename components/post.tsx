@@ -1,6 +1,13 @@
 import { IoChatbubbleOutline, IoThumbsUpOutline } from "react-icons/io5";
+import { useState } from "react";
 
 const Post = () => {
+  const [liked, setLiked] = useState(false);
+
+  const likePost = () => {
+    setLiked((liked) => !liked);
+  };
+
   return (
     <div className="w-full px-5 py-3 flex gap-8 border-b hover:bg-slate-100">
       <div>
@@ -26,8 +33,13 @@ const Post = () => {
             <IoChatbubbleOutline />
             <span>0</span>
           </div>
-          <button className="flex items-center gap-3 text-xl text-gray-700">
-            <IoThumbsUpOutline />
+          <button
+            onClick={likePost}
+            className="flex items-center gap-3 text-xl text-gray-700"
+          >
+            <IoThumbsUpOutline
+              className={liked ? "text-orange-500 animate-wiggle" : ""}
+            />
             <span>0</span>
           </button>
         </footer>

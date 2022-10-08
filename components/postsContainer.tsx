@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "./post";
-import CreatePostForm from "./postCreation/createPostForm";
+import CreatePostForm from "./postCreation/createPostElement";
 
 const PostsContainer = () => {
   return (

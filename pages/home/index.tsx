@@ -6,6 +6,7 @@ import PostsContainer from "../../components/postsContainer";
 import ProfileWidget from "../../components/profileWidget";
 import FriendSuggestions from "../../components/friendSuggestions";
 import CreatePostWidget from "../../components/postCreation/createPostWidget";
+import CommentForm from "../../components/commentCreation/commentForm";
 
 const HomePage = () => {
   // Hook will redirect if user not signed in
@@ -30,6 +31,7 @@ const HomePage = () => {
           </div>
         </div>
         <CreatePostWidget />
+        <CommentForm />
       </main>
     </>
   );

@@ -14,4 +14,8 @@ const loginSchema = yup.object().shape({
   password: yup.string().required(),
 });
 
-export { signupSchema, loginSchema };
+const createPostSchema = yup.object().shape({
+  content: yup.string().required().min(1).max(1500),
+});
+
+export { signupSchema, loginSchema, createPostSchema };

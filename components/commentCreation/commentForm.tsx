@@ -2,8 +2,36 @@ import React from "react";
 import { IoImageOutline } from "react-icons/io5";
 import { HiEmojiHappy } from "react-icons/hi";
 import EmojiPicker from "emoji-picker-react";
+import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createPostSchema } from "../../frontend - lib/yupSchemas";
+import useCreatePost from "../../hooks/useCreatePost";
+import { useAuth } from "../../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
-const CommentForm = () => {
+type TProps = {
+  toggle: () => void;
+};
+
+const CommentForm = ({ toggle }: TProps) => {
+  // Custom hooks
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<any>({
+    resolver: yupResolver(createPostSchema),
+  });
+  const { createPostMutation } = useCreatePost();
+  const { user } = useAuth();
+
+  const onSubmit: SubmitHandler<any> = (data) => {
+    console.log(data);
+    const { content } = data;
+    // createPostMutation.mutate({ content: content, userId: user?.id });
+  };
+
   return (
     <>
       <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
@@ -13,20 +41,27 @@ const CommentForm = () => {
             {/*header*/}
             <div className="flex justify-center relative">
               <h5 className="text-2xl font-semibold">Create Post</h5>
-              <button className="absolute right-0 flex items-center justify-center bg-gray-200 w-8 rounded-full h-8 hover:bg-gray-400 font-bold">
+              <button
+                className="absolute right-0 flex items-center justify-center bg-gray-200 w-8 rounded-full h-8 hover:bg-gray-400 font-bold"
+                onClick={toggle}
+              >
                 X
               </button>
             </div>
             <div className="mt-6">
-              <form action="">
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <textarea
                   className="bg-white border w-full px-5 py-3 text-xl focus:border-gray-300 resize-none"
-                  name=""
-                  id=""
+                  {...register("content")}
                   cols="30"
                   rows="5"
                   placeholder="Whats on your mind?"
                 ></textarea>
+                {errors.content && (
+                  <span className=" block mt-1 mb-3 text-sm  text-red-500">
+                    {` * ${errors.content?.message}`}
+                  </span>
+                )}
                 <div className="flex justify-between px-3">
                   <button className="text-4xl text-emerald-400 hover:text-emerald-200">
                     <IoImageOutline />

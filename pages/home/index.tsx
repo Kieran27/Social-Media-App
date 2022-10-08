@@ -7,8 +7,10 @@ import ProfileWidget from "../../components/profileWidget";
 import FriendSuggestions from "../../components/friendSuggestions";
 import CreatePostWidget from "../../components/postCreation/createPostWidget";
 import CommentForm from "../../components/commentCreation/commentForm";
+import useToggle from "../../hooks/useToggle";
 
 const HomePage = () => {
+  const { isToggled, toggle } = useToggle();
   // Hook will redirect if user not signed in
 
   const { user } = useAuth();
@@ -30,8 +32,8 @@ const HomePage = () => {
             <FriendSuggestions />
           </div>
         </div>
-        <CreatePostWidget />
-        <CommentForm />
+        <CreatePostWidget toggle={toggle} />
+        {isToggled && <CommentForm toggle={toggle} />}
       </main>
     </>
   );

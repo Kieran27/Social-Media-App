@@ -44,7 +44,6 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
         handleLogin(data);
       },
       onError: (error) => {
-        console.log(error);
         const message = error.response.data.error;
         toast.error(`${message}.`, {
           id: "loginError",
@@ -60,7 +59,6 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
 
   const onSubmit: SubmitHandler<ILogin> = (data) => {
     const { email, password } = data;
-    console.log(data);
     mutation.mutate({ email: email, password: password });
   };
 

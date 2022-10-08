@@ -5,7 +5,7 @@ import HomepageHeader from "../../components/homepageHeader";
 import PostsContainer from "../../components/postsContainer";
 import ProfileWidget from "../../components/profileWidget";
 import FriendSuggestions from "../../components/friendSuggestions";
-import CreatePostWidget from "../../components/createPostWidget";
+import CreatePostWidget from "../../components/postCreation/createPostWidget";
 
 const HomePage = () => {
   // Hook will redirect if user not signed in

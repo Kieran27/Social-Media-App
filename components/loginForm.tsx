@@ -36,11 +36,6 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
     (data: ILogin) => login(data.email, data.password),
     {
       onSuccess: (data) => {
-        /*
-        toast.success("Login Successful!.", {
-          id: "loginSuccess",
-        });
-        */
         handleLogin(data);
       },
       onError: (error) => {
@@ -137,7 +132,6 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
           Register Here
         </button>
       </div>
-      <Toaster />
     </section>
   );
 };

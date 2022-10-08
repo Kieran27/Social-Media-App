@@ -38,6 +38,10 @@ handler
     await dbConnect();
     // Validate req body
     const { content, user_id } = req.body;
+
+    if (!user_id) {
+      return res.status(409).json({ error: "Something went wrong..." });
+    }
     // Create newPost and update db
     try {
       const newPost = await post.create(

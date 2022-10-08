@@ -14,23 +14,49 @@ type TProps = {
   toggle: () => void;
 };
 
+type TPostCreate = {
+  content: string;
+};
+
 const CommentForm = ({ toggle }: TProps) => {
+  // Define state
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
   // Custom hooks
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>({
+  } = useForm<TPostCreate>({
     resolver: yupResolver(createPostSchema),
   });
-  const { createPostMutation } = useCreatePost();
+  const { createPostMutation, fetchingState } = useCreatePost();
   const { user } = useAuth();
 
-  const onSubmit: SubmitHandler<any> = (data) => {
+  // Component functions
+  const onSubmit: SubmitHandler<TPostCreate> = (data) => {
     console.log(data);
     const { content } = data;
-    // createPostMutation.mutate({ content: content, userId: user?.id });
+    console.log(content);
+    createPostMutation.mutate({ content: content, userId: user?.id });
   };
+
+  const toggleEmojiPicker = () => {
+    setShowEmojiPicker((showEmojiPicker) => !showEmojiPicker);
+  };
+
+  if (fetchingState === "error") {
+    console.log("Error recieved!");
+    return (
+      <div className="flex items-center justify-center min-h-screen w-full bg-red-200">
+        Error!
+      </div>
+    );
+  }
+
+  if (fetchingState === "Success") {
+    console.log("Success");
+  }
 
   return (
     <>
@@ -48,13 +74,13 @@ const CommentForm = ({ toggle }: TProps) => {
                 X
               </button>
             </div>
-            <div className="mt-6">
+            <div className="mt-6 relative">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <textarea
                   className="bg-white border w-full px-5 py-3 text-xl focus:border-gray-300 resize-none"
                   {...register("content")}
-                  cols="30"
-                  rows="5"
+                  cols={30}
+                  rows={5}
                   placeholder="Whats on your mind?"
                 ></textarea>
                 {errors.content && (
@@ -71,7 +97,10 @@ const CommentForm = ({ toggle }: TProps) => {
                   </button>
                 </div>
                 <div className="flex justify-end gap-4 mt-6">
-                  <button className="text-gray-700 hover:text-gray-400">
+                  <button
+                    className="text-gray-700 hover:text-gray-400"
+                    onClick={toggle}
+                  >
                     Cancel
                   </button>
                   <input
@@ -81,11 +110,17 @@ const CommentForm = ({ toggle }: TProps) => {
                   />
                 </div>
               </form>
+              {showEmojiPicker && (
+                <div className="absolute right-0 bottom-0">
+                  <EmojiPicker />
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+      <Toaster />
     </>
   );
 };

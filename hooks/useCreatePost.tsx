@@ -2,18 +2,29 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import createPost from "../frontend - lib/axiosCalls/createPost";
 
+type nimious = {
+  content: string;
+  userId: string | undefined;
+};
+
 const useCreatePost = () => {
   const [createModal, setCreateModal] = useState(false);
+  const [fetchingState, setFetchingState] = useState<null | string>(null);
 
   const toggleCreateModal = () => {
     setCreateModal((createModal) => !createModal);
   };
 
   const createPostMutation = useMutation(
-    (postData: any) => createPost(postData.content),
+    (postData: nimious) => createPost(postData.content, postData.userId),
     {
       onSuccess: (data) => {
         console.log(data);
+        setFetchingState("Success");
+      },
+      onError: (error) => {
+        setFetchingState("error");
+        console.log(error);
       },
     }
   );
@@ -22,6 +33,7 @@ const useCreatePost = () => {
     createModal,
     toggleCreateModal,
     createPostMutation,
+    fetchingState,
   };
 };
 

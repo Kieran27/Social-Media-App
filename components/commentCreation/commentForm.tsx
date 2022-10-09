@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createPostSchema } from "../../frontend - lib/yupSchemas";
 import useCreatePost from "../../hooks/useCreatePost";
 import { useAuth } from "../../hooks/useAuth";
+import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
 
 type TProps = {
@@ -94,11 +95,20 @@ const CommentForm = ({ toggle }: TProps) => {
                   >
                     Cancel
                   </button>
-                  <input
+                  <button
                     type="submit"
-                    value="Create Post"
-                    className="bg-emerald-500 text-white font-medium px-4 py-2 rounded-2xl hover:bg-emerald-300"
-                  />
+                    className="bg-emerald-500 text-white font-medium px-4 py-2 rounded-2xl hover:bg-emerald-300 flex items-center justify-center"
+                  >
+                    {isLoading ? (
+                      <ClipLoader
+                        color={"#fff"}
+                        loading={isLoading}
+                        size={20}
+                      />
+                    ) : (
+                      "Create Post"
+                    )}
+                  </button>
                 </div>
               </form>
               {showEmojiPicker && (

@@ -30,7 +30,7 @@ const CommentForm = ({ toggle }: TProps) => {
   } = useForm<TPostCreate>({
     resolver: yupResolver(createPostSchema),
   });
-  const { createPostMutation, fetchingState } = useCreatePost();
+  const { isLoading, mutate } = useCreatePost();
   const { user } = useAuth();
 
   // Component functions
@@ -38,24 +38,15 @@ const CommentForm = ({ toggle }: TProps) => {
     console.log(data);
     const { content } = data;
     console.log(content);
-    createPostMutation.mutate({ content: content, userId: user?.id });
+    mutate({ content: content, userId: user?.id });
   };
 
   const toggleEmojiPicker = () => {
     setShowEmojiPicker((showEmojiPicker) => !showEmojiPicker);
   };
 
-  if (fetchingState === "error") {
-    console.log("Error recieved!");
-    return (
-      <div className="flex items-center justify-center min-h-screen w-full bg-red-200">
-        Error!
-      </div>
-    );
-  }
-
-  if (fetchingState === "Success") {
-    console.log("Success");
+  if (isLoading) {
+    console.log("Loading");
   }
 
   return (
@@ -119,8 +110,8 @@ const CommentForm = ({ toggle }: TProps) => {
           </div>
         </div>
       </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
       <Toaster />
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </>
   );
 };

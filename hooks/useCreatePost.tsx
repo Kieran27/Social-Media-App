@@ -1,30 +1,32 @@
 import { useState } from "react";
 import { useMutation } from "react-query";
+import toast, { Toaster } from "react-hot-toast";
 import createPost from "../frontend - lib/axiosCalls/createPost";
 
-type nimious = {
+type PostData = {
   content: string;
   userId: string | undefined;
 };
 
 const useCreatePost = () => {
   const [createModal, setCreateModal] = useState(false);
-  const [fetchingState, setFetchingState] = useState<null | string>(null);
 
   const toggleCreateModal = () => {
     setCreateModal((createModal) => !createModal);
   };
 
-  const createPostMutation = useMutation(
-    (postData: nimious) => createPost(postData.content, postData.userId),
+  const { isLoading, mutate } = useMutation(
+    (postData: PostData) => createPost(postData.content, postData.userId),
     {
       onSuccess: (data) => {
         console.log(data);
-        setFetchingState("Success");
       },
       onError: (error) => {
-        setFetchingState("error");
         console.log(error);
+        const message = error.response.data.error;
+        toast.error(message, {
+          id: "brobbie",
+        });
       },
     }
   );
@@ -32,8 +34,8 @@ const useCreatePost = () => {
   return {
     createModal,
     toggleCreateModal,
-    createPostMutation,
-    fetchingState,
+    isLoading,
+    mutate,
   };
 };
 

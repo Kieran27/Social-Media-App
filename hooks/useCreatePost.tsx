@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "react-query";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import createPost from "../frontend - lib/axiosCalls/createPost";
 
 type PostData = {
@@ -25,7 +25,7 @@ const useCreatePost = () => {
         console.log(error);
         const message = error.response.data.error;
         toast.error(message, {
-          id: "brobbie",
+          id: "commentCreationError",
         });
       },
     }

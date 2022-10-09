@@ -1,4 +1,3 @@
-import React from "react";
 import { IoImageOutline } from "react-icons/io5";
 import { HiEmojiHappy } from "react-icons/hi";
 import EmojiPicker from "emoji-picker-react";
@@ -9,7 +8,7 @@ import { createPostSchema } from "../../frontend - lib/yupSchemas";
 import useCreatePost from "../../hooks/useCreatePost";
 import { useAuth } from "../../hooks/useAuth";
 import { ClipLoader } from "react-spinners";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 type TProps = {
   toggle: () => void;
@@ -36,9 +35,7 @@ const CommentForm = ({ toggle }: TProps) => {
 
   // Component functions
   const onSubmit: SubmitHandler<TPostCreate> = (data) => {
-    console.log(data);
     const { content } = data;
-    console.log(content);
     mutate({ content: content, userId: user?.id });
   };
 
@@ -46,17 +43,11 @@ const CommentForm = ({ toggle }: TProps) => {
     setShowEmojiPicker((showEmojiPicker) => !showEmojiPicker);
   };
 
-  if (isLoading) {
-    console.log("Loading");
-  }
-
   return (
     <>
       <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-full my-6 px-5 mx-auto max-w-3xl">
-          {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none px-5 py-5">
-            {/*header*/}
             <div className="flex justify-center relative">
               <h5 className="text-2xl font-semibold">Create Post</h5>
               <button

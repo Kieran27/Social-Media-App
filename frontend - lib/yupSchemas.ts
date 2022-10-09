@@ -18,4 +18,8 @@ const createPostSchema = yup.object().shape({
   content: yup.string().required().min(1).max(1500),
 });
 
-export { signupSchema, loginSchema, createPostSchema };
+const createCommentSchema = yup.object().shape({
+  commentContent: yup.string().required().min(1).max(750),
+});
+
+export { signupSchema, loginSchema, createPostSchema, createCommentSchema };

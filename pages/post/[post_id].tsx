@@ -24,7 +24,7 @@ const IndividualPostPage = () => {
               <CommentForm />
               <div className="gap-5 px-5 mt-5">
                 <h3 className="mb-4 font-medium text-xl">Comments (0)</h3>
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 transition-all">
                   <Comment />
                   <Comment />
                   <Comment />

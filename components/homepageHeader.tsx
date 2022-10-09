@@ -42,7 +42,7 @@ const HomepageHeader = () => {
           </a>
         </Link>
       </div>
-      <div>
+      <div className="hidden sm:block">
         <ul className="flex items-center gap-5">
           <li className="relative">
             <button

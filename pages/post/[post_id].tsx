@@ -4,6 +4,7 @@ import ProfileWidget from "../../components/profileWidget";
 import FriendSuggestions from "../../components/friendSuggestions";
 import IndividualPost from "../../components/individualPost";
 import Comment from "../../components/commentComponents/comment";
+import CommentForm from "../../components/commentComponents/commentForm";
 
 const IndividualPostPage = () => {
   return (
@@ -20,11 +21,14 @@ const IndividualPostPage = () => {
             <ProfileWidget />
             <section className="col-span-full lg:col-span-8 xl:col-span-6 bg-white shadow-xl py-8 rounded-2xl border ">
               <IndividualPost />
-              <div className="px-5 mt-5">
-                <h3 className="mb-3 font-medium text-xl">Comments</h3>
-                <Comment />
-                <Comment />
-                <Comment />
+              <CommentForm />
+              <div className="gap-5 px-5 mt-5">
+                <h3 className="mb-4 font-medium text-xl">Comments (0)</h3>
+                <div className="flex flex-col gap-5">
+                  <Comment />
+                  <Comment />
+                  <Comment />
+                </div>
               </div>
             </section>
             <FriendSuggestions />

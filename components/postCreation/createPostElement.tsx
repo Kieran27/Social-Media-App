@@ -7,7 +7,7 @@ const CreatePostForm = () => {
   const { isToggled, toggle } = useToggle();
   return (
     <div
-      className="flex items-center w-full px-5 py-3 mb-3 border gap-4"
+      className="flex items-center w-full px-5 py-3 mb-3 border-y gap-4"
       onClick={toggle}
     >
       <div className="h-12 w-12 bg-emerald-200 rounded-full"></div>

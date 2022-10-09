@@ -1,4 +1,9 @@
-import { IoChatbubbleOutline, IoThumbsUpOutline } from "react-icons/io5";
+import {
+  IoChatbubbleOutline,
+  IoThumbsUpOutline,
+  IoTrashOutline,
+  IoPencilOutline,
+} from "react-icons/io5";
 import { useState } from "react";
 
 const IndividualPost = () => {
@@ -14,12 +19,22 @@ const IndividualPost = () => {
         <div className="h-12 w-12 bg-emerald-500 rounded-full"></div>
       </div>
       <div>
-        <header className="flex items-center gap-3 mb-5">
-          <span className="font-semibold tracking-wide text-lg">
-            Post Author
-          </span>
-          <span className="text-lg"> | </span>
-          <span className="text-gray-500 text-sm">Date</span>
+        <header className="flex items-center justify-between gap-3 mb-5">
+          <div>
+            <span className="font-semibold tracking-wide text-lg">
+              Post Author
+            </span>
+            <span className="text-lg"> | </span>
+            <span className="text-gray-500 text-sm">Date</span>
+          </div>
+          <div className="flex gap-5 text-xl">
+            <button className="hover:text-red-500">
+              <IoTrashOutline />
+            </button>
+            <button className="hover:text-emerald-500">
+              <IoPencilOutline />
+            </button>
+          </div>
         </header>
         <div>
           <p>

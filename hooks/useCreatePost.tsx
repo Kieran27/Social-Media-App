@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import toast from "react-hot-toast";
 import createPost from "../frontend - lib/axiosCalls/createPost";
+import getPosts from "../frontend - lib/axiosCalls/getPosts";
 
 type PostData = {
   content: string;
@@ -9,11 +10,15 @@ type PostData = {
 };
 
 const useCreatePost = () => {
+  const queryClient = useQueryClient();
+
   const [createModal, setCreateModal] = useState(false);
 
   const toggleCreateModal = () => {
     setCreateModal((createModal) => !createModal);
   };
+
+  const posts = useQuery(["posts"], getPosts);
 
   const { isLoading, mutate } = useMutation(
     (postData: PostData) => createPost(postData.content, postData.userId),
@@ -36,6 +41,7 @@ const useCreatePost = () => {
     toggleCreateModal,
     isLoading,
     mutate,
+    posts,
   };
 };
 

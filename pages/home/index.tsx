@@ -8,13 +8,18 @@ import FriendSuggestions from "../../components/friendSuggestions";
 import CreatePostWidget from "../../components/postCreation/createPostWidget";
 import CommentForm from "../../components/postCreation/postForm";
 import useToggle from "../../hooks/useToggle";
+import getPosts from "../../frontend - lib/axiosCalls/getPosts";
+import useCreatePost from "../../hooks/useCreatePost";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const { isToggled, toggle } = useToggle();
   // Hook will redirect if user not signed in
 
-  const { user } = useAuth();
-  console.log(user);
+  // Custom hooks
+  const { posts } = useCreatePost();
+  const postData = posts?.data?.data.posts;
+  console.log(posts?.data?.data.posts);
 
   return (
     <>
@@ -28,7 +33,7 @@ const HomePage = () => {
         <div className="max-w-[100rem] mx-auto">
           <div className="grid grid-cols-12 px-5 gap-8 w-full ">
             <ProfileWidget />
-            <PostsContainer />
+            <PostsContainer posts={postData} />
             <FriendSuggestions />
           </div>
         </div>

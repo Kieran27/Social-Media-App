@@ -13,9 +13,9 @@ const useCreateComment = () => {
   const { isLoading, mutate } = useMutation(
     (commentData: CommentData) =>
       createComment(
+        commentData.postId,
         commentData.content,
-        commentData.userId,
-        commentData.postId
+        commentData.userId
       ),
     {
       onSuccess: (data) => {

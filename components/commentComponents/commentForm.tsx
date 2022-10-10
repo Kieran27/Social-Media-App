@@ -2,13 +2,19 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createCommentSchema } from "../../frontend - lib/yupSchemas";
+import { useAuth } from "../../hooks/useAuth";
 import { Toaster } from "react-hot-toast";
+import useCreateComment from "../../hooks/useCreateComment";
 
 type TCommentCreate = {
   commentContent: string;
 };
 
-const CommentForm = () => {
+type TProps = {
+  postId: any;
+};
+
+const CommentForm = ({ postId }: TProps) => {
   const [expandedForm, setExpandedForm] = useState(false);
 
   // Custom hooks
@@ -20,11 +26,14 @@ const CommentForm = () => {
   } = useForm<TCommentCreate>({
     resolver: yupResolver(createCommentSchema),
   });
+  const { user } = useAuth();
+  const { isLoading, mutate } = useCreateComment();
 
   // Component functions
   const onSubmit: SubmitHandler<TCommentCreate> = (data) => {
-    console.log("Something");
     console.log(data);
+    const { commentContent } = data;
+    mutate({ content: commentContent, userId: user?.id, postId: postId });
   };
 
   const toggleExpandedForm = () => {

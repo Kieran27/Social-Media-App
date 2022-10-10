@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
-import createPost from "../frontend - lib/axiosCalls/createPost";
+import createComment from "../frontend - lib/axiosCalls/createComment";
 
-type PostData = {
+type CommentData = {
   content: string;
   userId: string | undefined;
+  postId: string;
 };
 
-const useCreatePost = () => {
-  const [createModal, setCreateModal] = useState(false);
-
-  const toggleCreateModal = () => {
-    setCreateModal((createModal) => !createModal);
-  };
-
+const useCreateComment = () => {
   const { isLoading, mutate } = useMutation(
-    (postData: PostData) => createPost(postData.content, postData.userId),
+    (commentData: CommentData) =>
+      createComment(
+        commentData.content,
+        commentData.userId,
+        commentData.postId
+      ),
     {
       onSuccess: (data) => {
         console.log(data);
@@ -25,18 +25,16 @@ const useCreatePost = () => {
         console.log(error);
         const message = error.response.data.error;
         toast.error(message, {
-          id: "postCreationError",
+          id: "commentCreationError",
         });
       },
     }
   );
 
   return {
-    createModal,
-    toggleCreateModal,
     isLoading,
     mutate,
   };
 };
 
-export default useCreatePost;
+export default useCreateComment;

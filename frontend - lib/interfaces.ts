@@ -11,10 +11,17 @@ export interface ILogin {
 }
 
 export interface IPost {
-  author: string[];
+  author: Author[];
   comments: any[];
+  content: string;
   lastUpdatedAt: string;
+  timestamp: string;
   likes?: any[];
   _v: number;
   _id: string;
 }
+
+type Author = {
+  username: string;
+  _id: string;
+};

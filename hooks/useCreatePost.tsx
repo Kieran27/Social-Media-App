@@ -24,6 +24,7 @@ const useCreatePost = () => {
     (postData: PostData) => createPost(postData.content, postData.userId),
     {
       onSuccess: (data) => {
+        queryClient.invalidateQueries(["posts"]);
         console.log(data);
       },
       onError: (error: any) => {

@@ -1,9 +1,13 @@
 import { IoChatbubbleOutline, IoThumbsUpOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useState } from "react";
-import post from "../api - lib/models/post";
+import { IPost } from "../frontend - lib/interfaces";
 
-const Post = ({ postData }: any) => {
+type IProps = {
+  postData: IPost;
+};
+
+const Post = ({ postData }: IProps) => {
   const [liked, setLiked] = useState(false);
   console.log(postData);
 

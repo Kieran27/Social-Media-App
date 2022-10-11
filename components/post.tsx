@@ -12,7 +12,7 @@ const Post = ({ postData }: any) => {
   };
 
   return (
-    <Link href="/post/null">
+    <Link href={`/post/${postData._id}`}>
       <a>
         <div className="w-full px-5 py-3 flex gap-8 border-b hover:bg-slate-100">
           <div>
@@ -24,7 +24,9 @@ const Post = ({ postData }: any) => {
                 {postData.author[0].username}
               </span>
               <span className="text-lg"> | </span>
-              <span className="text-gray-500 text-sm">Date</span>
+              <span className="text-gray-500 text-sm">
+                {postData.timestamp}
+              </span>
             </header>
             <div>
               <p>{postData.content}</p>
@@ -32,7 +34,7 @@ const Post = ({ postData }: any) => {
             <footer className="flex justify-center mt-6 gap-16">
               <div className="flex items-center gap-3 text-xl text-gray-700">
                 <IoChatbubbleOutline />
-                <span>0</span>
+                <span>{postData.comments.length}</span>
               </div>
               <button
                 onClick={likePost}
@@ -41,7 +43,7 @@ const Post = ({ postData }: any) => {
                 <IoThumbsUpOutline
                   className={liked ? "text-orange-500 animate-wiggle" : ""}
                 />
-                <span>0</span>
+                <span>{postData.likes?.length || 0}</span>
               </button>
             </footer>
           </div>

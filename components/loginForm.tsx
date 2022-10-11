@@ -3,18 +3,13 @@ import { useAuth } from "../hooks/useAuth";
 import { useMutation } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginSchema } from "../frontend - lib/yupSchemas";
+import { ILogin } from "../frontend - lib/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import login from "../frontend - lib/axiosCalls/login";
 import toast, { Toaster } from "react-hot-toast";
-import { IoIosArrowRoundForward } from "react-icons/io";
 
 interface IProps {
   changeAuthForm: () => void;
-}
-
-interface ILogin {
-  email: string;
-  password: string;
 }
 
 const LoginForm = ({ changeAuthForm }: IProps) => {

@@ -1,6 +1,4 @@
 import Head from "next/head";
-import useRequireAuth from "../../hooks/useRequireAuth";
-import { useAuth } from "../../hooks/useAuth";
 import HomepageHeader from "../../components/homepageHeader";
 import PostsContainer from "../../components/postsContainer";
 import ProfileWidget from "../../components/profileWidget";
@@ -8,9 +6,7 @@ import FriendSuggestions from "../../components/friendSuggestions";
 import CreatePostWidget from "../../components/postCreation/createPostWidget";
 import CommentForm from "../../components/postCreation/postForm";
 import useToggle from "../../hooks/useToggle";
-import getPosts from "../../frontend - lib/axiosCalls/getPosts";
 import useCreatePost from "../../hooks/useCreatePost";
-import { useEffect } from "react";
 
 const HomePage = () => {
   const { isToggled, toggle } = useToggle();

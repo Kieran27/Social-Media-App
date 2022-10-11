@@ -3,20 +3,13 @@ import { useAuth } from "../hooks/useAuth";
 import { useMutation } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IoIosArrowRoundForward } from "react-icons/io";
+import { ISignup } from "../frontend - lib/interfaces";
 import { signupSchema } from "../frontend - lib/yupSchemas";
 import signup from "../frontend - lib/axiosCalls/signup";
 import toast, { Toaster } from "react-hot-toast";
 
 interface IProps {
   changeAuthForm: () => void;
-}
-
-interface ISignup {
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
 }
 
 const SignupForm = ({ changeAuthForm }: IProps) => {
@@ -39,15 +32,9 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
       signup(data.email, data.username, data.password, data.confirmPassword),
     {
       onSuccess: (data) => {
-        /*
-        toast.success("Login Successful!.", {
-          id: "loginSuccess",
-        });
-        */
         handleLogin(data);
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (error: any) => {
         const message = error.response.data.error;
         toast.error(`${message}.`, {
           id: "loginError",

@@ -40,7 +40,8 @@ handler
     const { post_id } = query;
 
     // Get user_id from req.body
-    const { user_id } = req.body;
+    const { data } = req.body;
+    const user_id = data.user_id;
 
     try {
       await post.findByIdAndDelete(post_id);

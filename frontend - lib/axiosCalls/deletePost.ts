@@ -1,12 +1,14 @@
 import axios from "./axiosInstance";
 import getTokenFromStorage from "../getStorage";
 
-const deletePost = (postId: string | undefined | string[]) => {
+const deletePost = (
+  postId: string | undefined | string[],
+  userId: string | undefined
+) => {
   const refreshToken = getTokenFromStorage().refreshToken;
   return axios.delete(`/posts/${postId}`, {
-    headers: {
-      Authorization: refreshToken,
-    },
+    data: { user_id: userId },
+    headers: { Authorization: refreshToken },
   });
 };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createCommentSchema } from "../../frontend - lib/yupSchemas";
@@ -20,7 +20,6 @@ const CommentForm = ({ postId }: TProps) => {
   // Custom hooks
   const {
     register,
-    unregister,
     handleSubmit,
     formState: { errors },
   } = useForm<TCommentCreate>({

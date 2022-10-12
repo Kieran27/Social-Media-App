@@ -13,9 +13,10 @@ import useToggle from "../hooks/useToggle";
 interface IProps {
   postData: IPost;
   postId: string | undefined | string[];
+  toggleEditForm: () => void;
 }
 
-const IndividualPost = ({ postData, postId }: IProps) => {
+const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
   const [liked, setLiked] = useState(false);
 
   // Custom hooks
@@ -49,7 +50,10 @@ const IndividualPost = ({ postData, postId }: IProps) => {
                 <button className="hover:text-red-500" onClick={toggle}>
                   <IoTrashOutline />
                 </button>
-                <button className="hover:text-emerald-500">
+                <button
+                  className="hover:text-emerald-500"
+                  onClick={toggleEditForm}
+                >
                   <IoPencilOutline />
                 </button>
               </div>

@@ -3,9 +3,16 @@ import { useQuery, useQueryClient, useMutation } from "react-query";
 import toast from "react-hot-toast";
 import getIndividualPost from "../frontend - lib/axiosCalls/getIndividualPost";
 import deletePost from "../frontend - lib/axiosCalls/deletePost";
+import editPost from "../frontend - lib/axiosCalls/editPost";
 import { useRouter } from "next/router";
 
-const useIndividualPost = (postId: string | undefined | string[]) => {
+const useIndividualPost = (
+  postId: string | undefined | string[],
+  userId: string | undefined
+) => {
+  // State to determine edit form display
+  const [editFormOpen, setEditFormOpen] = useState(false);
+
   // Create new query Client
   const queryClient = useQueryClient();
 
@@ -15,12 +22,21 @@ const useIndividualPost = (postId: string | undefined | string[]) => {
   // Query to retrieve selected post
   const individualPost = useQuery([postId], () => getIndividualPost(postId));
 
+  // State to determine edit form state
+  const toggleEditForm = () => {
+    setEditFormOpen((editFormOpen) => !editFormOpen);
+  };
+
   // Mutation to create delete post
-  const { isLoading, mutate } = useMutation(() => deletePost(postId), {
-    onSuccess: (data) => {
+  const { isLoading, mutate } = useMutation(() => deletePost(postId, userId), {
+    onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);
-      console.log(data);
-      router.push("/home");
+      toast.success("Post Deleted!", {
+        id: "postDeletionSuccess",
+      });
+      setTimeout(() => {
+        router.push("/home");
+      }, 1500);
     },
     onError: (error: any) => {
       console.log(error);
@@ -31,10 +47,34 @@ const useIndividualPost = (postId: string | undefined | string[]) => {
     },
   });
 
+  // Mutation to edit post
+  const editPostMutation = useMutation(
+    (updatedPostContent: string) =>
+      editPost(updatedPostContent, postId, userId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([postId]);
+        toast.success("Post Updated!", {
+          id: "postUpdatedSuccess",
+        });
+      },
+      onError: (error: any) => {
+        console.log(error);
+        const message = error.response.data.error;
+        toast.error(message, {
+          id: "postUpdatedError",
+        });
+      },
+    }
+  );
+
   return {
     individualPost,
     isLoading,
     mutate,
+    editFormOpen,
+    toggleEditForm,
+    editPostMutation,
   };
 };
 

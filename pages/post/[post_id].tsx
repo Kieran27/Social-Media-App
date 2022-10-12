@@ -6,6 +6,8 @@ import IndividualPost from "../../components/individualPost";
 import Comment from "../../components/commentComponents/comment";
 import CommentForm from "../../components/commentComponents/commentForm";
 import useIndividualPost from "../../hooks/useIndividualPost";
+import EditPostForm from "../../components/postCreation/editPostForm";
+import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 
 const IndividualPostPage = () => {
@@ -13,10 +15,13 @@ const IndividualPostPage = () => {
   const router = useRouter();
   const { post_id } = router.query;
 
-  // Custom hooks
-  const { individualPost } = useIndividualPost(post_id);
+  // Custom hooks\
+  const { user } = useAuth();
+  const { individualPost, editFormOpen, toggleEditForm } = useIndividualPost(
+    post_id,
+    user?.id
+  );
   const postData = individualPost.data?.data.post;
-  console.log(postData);
 
   return (
     <>
@@ -31,7 +36,19 @@ const IndividualPostPage = () => {
           <div className="grid grid-cols-12 px-5 gap-8 w-full ">
             <ProfileWidget />
             <section className="col-span-full lg:col-span-8 xl:col-span-6 bg-white shadow-xl py-8 rounded-2xl border ">
-              <IndividualPost postData={postData} postId={post_id} />
+              {editFormOpen ? (
+                <EditPostForm
+                  postData={postData}
+                  postId={post_id}
+                  toggleEditForm={toggleEditForm}
+                />
+              ) : (
+                <IndividualPost
+                  postData={postData}
+                  postId={post_id}
+                  toggleEditForm={toggleEditForm}
+                />
+              )}
               <CommentForm postId={post_id} />
               <div className="gap-5 px-5 mt-5">
                 <h3 className="mb-4 font-medium text-xl">

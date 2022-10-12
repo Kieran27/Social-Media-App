@@ -1,11 +1,21 @@
 import axios from "./axiosInstance";
+import getTokenFromStorage from "../getStorage";
 
 const createComment = (
   postId: string,
   content: string,
   user_id: string | undefined
 ) => {
-  return axios.post(`post/${postId}/comments`, { content, user_id });
+  const refreshToken = getTokenFromStorage().refreshToken;
+  return axios.post(
+    `${postId}/comments`,
+    { content, user_id },
+    {
+      headers: {
+        Authorization: refreshToken,
+      },
+    }
+  );
 };
 
 export default createComment;

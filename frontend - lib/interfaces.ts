@@ -1,3 +1,6 @@
+import { TComments } from "./types";
+import { TAuthor } from "./types";
+
 export interface ISignup {
   email: string;
   username: string;
@@ -11,17 +14,12 @@ export interface ILogin {
 }
 
 export interface IPost {
-  author: Author[];
-  comments: any[];
+  author: TAuthor[];
+  comments: TComments[];
   content: string;
   lastUpdatedAt: string;
   timestamp: string;
-  likes?: any[];
+  likes: any[];
   _v: number;
   _id: string;
 }
-
-type Author = {
-  username: string;
-  _id: string;
-};

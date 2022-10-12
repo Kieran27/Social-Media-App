@@ -27,7 +27,7 @@ handler
         if (err) {
           return res.status(400).json({ error: err });
         }
-        return res.json({ posts: data });
+        return res.json({ comments: data });
       });
   })
 

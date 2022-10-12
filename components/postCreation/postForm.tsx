@@ -18,7 +18,7 @@ type TPostCreate = {
   content: string;
 };
 
-const CommentForm = ({ toggle }: TProps) => {
+const PostForm = ({ toggle }: TProps) => {
   // Define state
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
@@ -117,4 +117,4 @@ const CommentForm = ({ toggle }: TProps) => {
   );
 };
 
-export default CommentForm;
+export default PostForm;

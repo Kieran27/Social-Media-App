@@ -18,8 +18,10 @@ const useCreatePost = () => {
     setCreateModal((createModal) => !createModal);
   };
 
+  // Query to retrieve posts
   const posts = useQuery(["posts"], getPosts);
 
+  // Mutation to create new post
   const { isLoading, mutate } = useMutation(
     (postData: PostData) => createPost(postData.content, postData.userId),
     {

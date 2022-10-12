@@ -31,7 +31,6 @@ const CommentForm = ({ postId }: TProps) => {
 
   // Component functions
   const onSubmit: SubmitHandler<TCommentCreate> = (data) => {
-    console.log(data);
     const { commentContent } = data;
     mutate({ content: commentContent, userId: user?.id, postId: postId });
   };
@@ -71,13 +70,14 @@ const CommentForm = ({ postId }: TProps) => {
                   type="submit"
                   className="bg-emerald-500 text-white font-medium px-4 py-2 rounded-2xl hover:bg-emerald-300 flex items-center justify-center"
                 >
-                  Create Post
+                  Create Comment
                 </button>
               </div>
             </footer>
           )}
         </form>
       </div>
+      <Toaster />
     </section>
   );
 };

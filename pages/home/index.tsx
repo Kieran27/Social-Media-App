@@ -4,16 +4,14 @@ import PostsContainer from "../../components/postsContainer";
 import ProfileWidget from "../../components/profileWidget";
 import FriendSuggestions from "../../components/friendSuggestions";
 import CreatePostWidget from "../../components/postCreation/createPostWidget";
-import CommentForm from "../../components/postCreation/postForm";
-import useToggle from "../../hooks/useToggle";
+import PostForm from "../../components/postCreation/postForm";
 import useCreatePost from "../../hooks/useCreatePost";
 
 const HomePage = () => {
-  const { isToggled, toggle } = useToggle();
   // Hook will redirect if user not signed in
 
   // Custom hooks
-  const { posts } = useCreatePost();
+  const { createModal, posts, toggleCreateModal } = useCreatePost();
   const postData = posts?.data?.data.posts;
   console.log(posts?.data?.data.posts);
 
@@ -33,8 +31,8 @@ const HomePage = () => {
             <FriendSuggestions />
           </div>
         </div>
-        <CreatePostWidget toggle={toggle} />
-        {isToggled && <CommentForm toggle={toggle} />}
+        <CreatePostWidget toggle={toggleCreateModal} />
+        {createModal && <PostForm toggle={toggleCreateModal} />}
       </main>
     </>
   );

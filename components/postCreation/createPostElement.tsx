@@ -1,9 +1,6 @@
-import React from "react";
-import { IoImageOutline } from "react-icons/io5";
-import { HiEmojiHappy } from "react-icons/hi";
 import useToggle from "../../hooks/useToggle";
 
-const CreatePostForm = () => {
+const CreatePostElement = () => {
   const { isToggled, toggle } = useToggle();
   return (
     <div
@@ -18,4 +15,4 @@ const CreatePostForm = () => {
   );
 };
 
-export default CreatePostForm;
+export default CreatePostElement;

@@ -3,13 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { IPost } from "../frontend - lib/interfaces";
 
-type IProps = {
+type TProps = {
   postData: IPost;
 };
 
-const Post = ({ postData }: IProps) => {
+const Post = ({ postData }: TProps) => {
   const [liked, setLiked] = useState(false);
-  console.log(postData);
 
   const likePost = () => {
     setLiked((liked) => !liked);

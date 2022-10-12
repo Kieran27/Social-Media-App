@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "./post";
-import CreatePostForm from "./postCreation/createPostElement";
+import CreatePostElement from "./postCreation/createPostElement";
 import { IPost } from "../frontend - lib/interfaces";
 
 type IProps = {
@@ -12,7 +12,7 @@ const PostsContainer = ({ posts }: IProps) => {
     <>
       <section className="col-span-full lg:col-span-8 xl:col-span-6 bg-white shadow-xl py-3 rounded-2xl border ">
         <div className="mt-5">
-          <CreatePostForm />
+          <CreatePostElement />
           {posts?.map((post: IPost) => {
             return <Post key={post._id} postData={post} />;
           })}

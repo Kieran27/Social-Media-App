@@ -56,7 +56,7 @@ const CommentForm = ({ postId }: TProps) => {
           )}
           {expandedForm && (
             <footer className="flex justify-between items-center mt-3">
-              <div className="h-12 min-w-[3rem] block bg-emerald-400 rounded-full"></div>
+              <div className=" h-8 w-8 sm:h-12 sm:min-w-[3rem] block bg-emerald-400 rounded-full"></div>
 
               <div className="flex gap-5">
                 <button

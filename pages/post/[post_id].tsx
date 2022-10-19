@@ -23,6 +23,10 @@ const IndividualPostPage = () => {
   );
   const postData = individualPost.data?.data.post;
 
+  if (individualPost.isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>

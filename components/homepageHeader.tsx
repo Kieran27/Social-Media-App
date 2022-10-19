@@ -33,7 +33,7 @@ const HomepageHeader = () => {
 
   return (
     <header className="flex justify-between items-center px-6 py-4 max-w-[100rem] mx-auto">
-      <div className="flex items-center">
+      <div className="flex items-center justify-center sm:justify-start w-full">
         <Link href="/home" className="cursor-pointer">
           <a>
             <h1 className="text-3xl font-semibold tracking-wider">

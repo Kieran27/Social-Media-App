@@ -7,6 +7,7 @@ import { ILogin } from "../frontend - lib/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import login from "../frontend - lib/axiosCalls/login";
 import toast, { Toaster } from "react-hot-toast";
+import { AxiosError } from "axios";
 
 interface IProps {
   changeAuthForm: () => void;
@@ -33,7 +34,7 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
       onSuccess: (data) => {
         handleLogin(data);
       },
-      onError: (error) => {
+      onError: (error: AxiosError) => {
         const message = error.response.data.error;
         toast.error(`${message}.`, {
           id: "loginError",
@@ -127,6 +128,7 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
           Register Here
         </button>
       </div>
+      <Toaster />
     </section>
   );
 };

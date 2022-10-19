@@ -1,5 +1,6 @@
 import { IoChatbubbleOutline, IoThumbsUpOutline } from "react-icons/io5";
 import Link from "next/link";
+import formatDate from "../frontend - lib/formatDate";
 import { useState } from "react";
 import { IPost } from "../frontend - lib/interfaces";
 
@@ -18,17 +19,18 @@ const Post = ({ postData }: TProps) => {
     <Link href={`/post/${postData._id}`}>
       <a>
         <div className="w-full px-5 py-3 flex gap-8 border-b hover:bg-slate-100">
-          <div>
+          <div className="hidden sm:block">
             <div className="h-12 w-12 bg-emerald-500 rounded-full"></div>
           </div>
           <div className="flex-grow">
             <header className="flex items-center gap-3 mb-5">
+              <div className="h-7 w-7 bg-emerald-500 rounded-full sm:hidden"></div>
               <span className="font-semibold tracking-wide text-lg">
                 {postData.author[0].username}
               </span>
               <span className="text-lg"> | </span>
               <span className="text-gray-500 text-sm">
-                {postData.timestamp}
+                {formatDate(postData.timestamp)}
               </span>
             </header>
             <div>

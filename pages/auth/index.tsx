@@ -2,7 +2,6 @@ import { useState } from "react";
 import Head from "next/head";
 import LoginForm from "../../components/loginForm";
 import SignupForm from "../../components/signupForm";
-import AuthFooter from "../../components/authFooter";
 import AuthHero from "../../components/authHero";
 import MobileAuthHero from "../../components/mobileAuthHero";
 

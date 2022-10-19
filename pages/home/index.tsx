@@ -13,7 +13,7 @@ const HomePage = () => {
   // Custom hooks
   const { createModal, posts, toggleCreateModal } = useCreatePost();
   const postData = posts?.data?.data.posts;
-  console.log(posts?.data?.data.posts);
+  console.log(posts);
 
   return (
     <>
@@ -23,7 +23,7 @@ const HomePage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomepageHeader />
-      <main className="bg-slate-100 min-h-[calc(100vh-72px)] pt-14 relative z-0">
+      <main className="bg-slate-100 min-h-[calc(100vh-72px)] pt-14 relative z-0 min-w-full">
         <div className="max-w-[100rem] mx-auto">
           <div className="grid grid-cols-12 px-5 gap-8 w-full ">
             <ProfileWidget />

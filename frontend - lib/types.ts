@@ -15,3 +15,10 @@ export type TComments = {
 export type TPostId = {
   postId: string | string[] | undefined;
 };
+
+export type TToken = {
+  username: string;
+  id: string;
+  iat: string;
+  exp: string;
+};

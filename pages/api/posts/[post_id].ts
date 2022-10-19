@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { authenticate } from "../../../api - lib/middleware/authentication";
 import dbConnect from "../../../api - lib/middleware/mongo_connect";
+import { TToken } from "../../../frontend - lib/types";
 import post from "../../../api - lib/models/post";
 import user from "../../../api - lib/models/user";
 import jwt_decode from "jwt-decode";
@@ -43,9 +44,11 @@ handler
 
     // Decode token to get user_id
     const token = req.headers.authorization;
-    if (!token) return null;
-    const { id } = jwt_decode(token);
-    console.log(id);
+    // If token not found, send error message
+    if (!token) {
+      return res.status(401).json({ error: "Token not found!" });
+    }
+    const { id } = jwt_decode<TToken>(token);
 
     try {
       await post.findByIdAndDelete(post_id);

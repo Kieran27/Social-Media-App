@@ -36,10 +36,10 @@ const Post = ({ postData }: TProps) => {
             <div>
               <p>{postData.content}</p>
             </div>
-            <footer className="flex justify-center mt-6 gap-16">
+            <footer className="flex justify-start sm:justify-center mt-6 gap-4 sm:gap-16">
               <div className="flex items-center gap-3 text-xl text-gray-700">
                 <IoChatbubbleOutline />
-                <span>{postData.comments.length}</span>
+                <span>{postData.comments?.length}</span>
               </div>
               <button
                 onClick={likePost}

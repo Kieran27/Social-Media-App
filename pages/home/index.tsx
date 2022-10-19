@@ -25,7 +25,7 @@ const HomePage = () => {
       <HomepageHeader />
       <main className="bg-slate-100 min-h-[calc(100vh-72px)] pt-14 relative z-0 min-w-full">
         <div className="max-w-[100rem] mx-auto">
-          <div className="grid grid-cols-12 px-5 gap-8 w-full ">
+          <div className="grid grid-cols-12 px-5 gap-8 w-full items-start ">
             <ProfileWidget />
             <PostsContainer posts={postData} />
             <FriendSuggestions />

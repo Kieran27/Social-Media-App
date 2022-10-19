@@ -57,6 +57,9 @@ const useIndividualPost = (
         toast.success("Post Updated!", {
           id: "postUpdatedSuccess",
         });
+        setTimeout(() => {
+          router.reload();
+        }, 300);
       },
       onError: (error: any) => {
         console.log(error);

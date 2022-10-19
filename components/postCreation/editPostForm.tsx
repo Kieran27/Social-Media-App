@@ -20,7 +20,6 @@ const EditPostForm = ({ postData, postId, toggleEditForm }: IProps) => {
   // Custom hooks
   const {
     register,
-    unregister,
     handleSubmit,
     formState: { errors },
   } = useForm<TPostUpdate>({

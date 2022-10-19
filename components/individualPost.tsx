@@ -65,7 +65,7 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
           <footer className="flex justify-center mt-6 gap-16">
             <div className="flex items-center gap-3 text-xl text-gray-700">
               <IoChatbubbleOutline />
-              <span>{postData?.comments.length}</span>
+              <span>{postData?.comments?.length}</span>
             </div>
             <button
               onClick={likePost}
@@ -74,7 +74,7 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
               <IoThumbsUpOutline
                 className={liked ? "text-orange-500 animate-wiggle" : ""}
               />
-              <span>{postData?.likes.length || 0}</span>
+              <span>{postData?.likes?.length || 0}</span>
             </button>
           </footer>
         </div>

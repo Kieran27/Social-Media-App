@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const ProfileWidget = () => {
   return (
-    <div className="hidden col-span-1 xl:block xl:col-span-3 bg-white shadow-xl py-8 px-5 rounded-2xl h-[430px]">
+    <div className="hidden col-span-1 xl:block xl:col-span-3 bg-white shadow-xl py-8 px-5 rounded-2xl self-start sticky top-4">
       <div className="flex justify-center relative">
         <div className="h-24 w-24 bg-emerald-200 rounded-full z-10"></div>
         <div className="absolute inline-block border w-full bg-gray-300 h-[1px] top-2/4 z-0 "></div>

@@ -4,6 +4,7 @@ import {
   IoTrashOutline,
   IoPencilOutline,
 } from "react-icons/io5";
+import { BiLike } from "react-icons/bi";
 import formatDate from "../frontend - lib/formatDate";
 import { IPost } from "../frontend - lib/interfaces";
 import { useState } from "react";
@@ -73,7 +74,7 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
               onClick={likePost}
               className="flex items-center gap-3 text-xl text-gray-700"
             >
-              <IoThumbsUpOutline
+              <BiLike
                 className={liked ? "text-orange-500 animate-wiggle" : ""}
               />
               <span>{postData?.likes?.length || 0}</span>

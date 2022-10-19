@@ -35,7 +35,6 @@ const EditPostForm = ({ postData, postId, toggleEditForm }: IProps) => {
   const onSubmit: SubmitHandler<TPostUpdate> = (data) => {
     const { updatedPostContent } = data;
     editPostMutation.mutate(updatedPostContent);
-    console.log(data);
   };
 
   return (

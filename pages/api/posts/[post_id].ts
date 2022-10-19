@@ -3,8 +3,10 @@ import { authenticate } from "../../../api - lib/middleware/authentication";
 import dbConnect from "../../../api - lib/middleware/mongo_connect";
 import post from "../../../api - lib/models/post";
 import user from "../../../api - lib/models/user";
+import jwt_decode from "jwt-decode";
 import comment from "../../../api - lib/models/comment";
 import nextConnect from "next-connect";
+import { decode } from "punycode";
 
 const handler = nextConnect();
 
@@ -39,9 +41,11 @@ handler
     const query = req.query;
     const { post_id } = query;
 
-    // Get user_id from req.body
-    const { data } = req.body;
-    const user_id = data.user_id;
+    // Decode token to get user_id
+    const token = req.headers.authorization;
+    if (!token) return null;
+    const { id } = jwt_decode(token);
+    console.log(id);
 
     try {
       await post.findByIdAndDelete(post_id);
@@ -50,7 +54,7 @@ handler
       await comment.deleteMany({ postId: post_id });
 
       // Find and delete post_id from user's posts array
-      await user.findByIdAndUpdate(user_id, {
+      await user.findByIdAndUpdate(id, {
         $pull: { posts: post_id },
       });
 

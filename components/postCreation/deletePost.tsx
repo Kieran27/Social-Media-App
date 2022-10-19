@@ -10,6 +10,7 @@ interface IProps {
 const DeletePost = ({ toggle, postId }: IProps) => {
   // Custom hook
   const { user } = useAuth();
+  console.log(user?.id);
   const { mutate } = useIndividualPost(postId, user?.id);
 
   return (

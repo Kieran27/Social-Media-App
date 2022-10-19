@@ -3,8 +3,7 @@ import getTokenFromStorage from "../getStorage";
 
 const editPost = (
   updatedPostContent: string,
-  postId: string | undefined | string[],
-  userId: string | undefined
+  postId: string | undefined | string[]
 ) => {
   const refreshToken = getTokenFromStorage().refreshToken;
   return axios.put(

@@ -28,7 +28,7 @@ const useIndividualPost = (
   };
 
   // Mutation to create delete post
-  const { isLoading, mutate } = useMutation(() => deletePost(postId, userId), {
+  const { isLoading, mutate } = useMutation(() => deletePost(postId), {
     onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);
       toast.success("Post Deleted!", {
@@ -49,8 +49,7 @@ const useIndividualPost = (
 
   // Mutation to edit post
   const editPostMutation = useMutation(
-    (updatedPostContent: string) =>
-      editPost(updatedPostContent, postId, userId),
+    (updatedPostContent: string) => editPost(updatedPostContent, postId),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([postId]);

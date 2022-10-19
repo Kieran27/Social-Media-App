@@ -4,6 +4,8 @@ import {
   IoThumbsUpOutline,
 } from "react-icons/io5";
 
+import { BiLike } from "react-icons/bi";
+
 const Comment = () => {
   return (
     <div className="flex flex-col md:max-w-2xl md:mx-auto">
@@ -34,7 +36,7 @@ const Comment = () => {
         </div>
         <div className="hidden sm:flex flex-col">
           <button className="text-xl">
-            <IoThumbsUpOutline />
+            <BiLike />
           </button>
           <span className="text-center text-xl">0</span>
         </div>
@@ -42,7 +44,7 @@ const Comment = () => {
       <footer className="flex justify-between px-2 sm:hidden">
         <div className="flex gap-2">
           <button className="text-lg">
-            <IoThumbsUpOutline />
+            <BiLike />
           </button>
           <span className="text-center text-lg">0</span>
         </div>

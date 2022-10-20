@@ -27,7 +27,7 @@ const HomePage = () => {
         <div className="max-w-[100rem] mx-auto">
           <div className="grid grid-cols-12 px-5 gap-8 w-full items-start ">
             <ProfileWidget />
-            <PostsContainer posts={postData} />
+            <PostsContainer posts={postData} toggle={toggleCreateModal} />
             <FriendSuggestions />
           </div>
         </div>

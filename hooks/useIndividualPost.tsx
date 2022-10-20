@@ -6,10 +6,7 @@ import deletePost from "../frontend - lib/axiosCalls/deletePost";
 import editPost from "../frontend - lib/axiosCalls/editPost";
 import { useRouter } from "next/router";
 
-const useIndividualPost = (
-  postId: string | undefined | string[],
-  userId: string | undefined
-) => {
+const useIndividualPost = (postId: string, userId: string | undefined) => {
   // State to determine edit form display
   const [editFormOpen, setEditFormOpen] = useState(false);
 
@@ -27,7 +24,7 @@ const useIndividualPost = (
     setEditFormOpen((editFormOpen) => !editFormOpen);
   };
 
-  // Mutation to create delete post
+  // Mutation to delete post
   const { isLoading, mutate } = useMutation(() => deletePost(postId), {
     onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);

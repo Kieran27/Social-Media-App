@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 const IndividualPostPage = () => {
   // Get post_id from router query
   const router = useRouter();
-  const { post_id } = router.query;
+  const post_id = router.query.post_id as string;
 
   // Custom hooks\
   const { user } = useAuth();

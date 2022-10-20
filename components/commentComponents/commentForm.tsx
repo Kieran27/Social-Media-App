@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { TCommentCreate } from "../../frontend - lib/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createCommentSchema } from "../../frontend - lib/yupSchemas";
 import { useAuth } from "../../hooks/useAuth";
 import { Toaster } from "react-hot-toast";
 import useCreateComment from "../../hooks/useCreateComment";
 
-type TCommentCreate = {
-  commentContent: string;
-};
-
 type TProps = {
-  postId: any;
+  postId: string;
 };
 
 const CommentForm = ({ postId }: TProps) => {

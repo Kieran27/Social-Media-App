@@ -8,7 +8,7 @@ import useIndividualPost from "../../hooks/useIndividualPost";
 
 interface IProps {
   postData: IPost;
-  postId: string | undefined | string[];
+  postId: string;
   toggleEditForm: () => void;
 }
 

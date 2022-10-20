@@ -22,3 +22,7 @@ export type TToken = {
   iat: string;
   exp: string;
 };
+
+export type TCommentCreate = {
+  commentContent: string;
+};

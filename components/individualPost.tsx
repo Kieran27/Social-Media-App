@@ -14,7 +14,7 @@ import useToggle from "../hooks/useToggle";
 
 interface IProps {
   postData: IPost;
-  postId: string | undefined | string[];
+  postId: string;
   toggleEditForm: () => void;
 }
 

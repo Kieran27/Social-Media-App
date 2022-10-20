@@ -1,7 +1,8 @@
-import useToggle from "../../hooks/useToggle";
+type TProps = {
+  toggle: () => void;
+};
 
-const CreatePostElement = () => {
-  const { isToggled, toggle } = useToggle();
+const CreatePostElement = ({ toggle }: TProps) => {
   return (
     <div
       className="flex items-center w-full px-5 py-3 mb-3 border-y gap-4"

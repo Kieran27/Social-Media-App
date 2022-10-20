@@ -7,6 +7,7 @@ const CommentSchema = new Schema({
   lastUpdatedAt: { type: Date, default: new Date().toISOString() },
   timestamp: { type: Date, default: Date.now() },
   postId: { type: String },
+  replies: [{ type: Schema.Types.ObjectId, ref: "comments" }],
 });
 
 export default mongoose.models.comments ||

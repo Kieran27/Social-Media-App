@@ -10,6 +10,26 @@ const handler = nextConnect();
 
 handler
   .use(authenticate)
+  // Get selected comment
+  .get(async (req: NextApiRequest, res: NextApiResponse) => {
+    // Connect to db
+    await dbConnect();
+
+    // Query post_id and comment_id from req params
+    const query = req.query;
+    const { comment_id } = query;
+
+    try {
+      const returnedComment = await comment
+        .findById(comment_id)
+        .populate({ path: "author", model: user, select: "username" });
+
+      res.json({ comment: returnedComment });
+    } catch (error) {
+      res.status(409).json({ error });
+    }
+  })
+
   // Update selected comment
   .put(async (req: NextApiRequest, res: NextApiResponse) => {
     // Connect to db

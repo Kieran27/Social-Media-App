@@ -75,7 +75,10 @@ const PostForm = ({ toggle }: TProps) => {
                   <button className="text-4xl text-emerald-400 hover:text-emerald-200">
                     <IoImageOutline />
                   </button>
-                  <button className="text-4xl text-emerald-400 hover:text-emerald-200">
+                  <button
+                    onClick={toggleEmojiPicker}
+                    className="text-4xl text-emerald-400 hover:text-emerald-200"
+                  >
                     <HiEmojiHappy />
                   </button>
                 </div>
@@ -103,7 +106,7 @@ const PostForm = ({ toggle }: TProps) => {
                 </div>
               </form>
               {showEmojiPicker && (
-                <div className="absolute right-0 bottom-0">
+                <div className="absolute right-6 bottom-0">
                   <EmojiPicker />
                 </div>
               )}

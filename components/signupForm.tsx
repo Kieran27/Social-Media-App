@@ -4,9 +4,10 @@ import { useMutation } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ISignup } from "../frontend - lib/interfaces";
+import { ClipLoader } from "react-spinners";
 import { signupSchema } from "../frontend - lib/yupSchemas";
 import signup from "../frontend - lib/axiosCalls/signup";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 interface IProps {
   changeAuthForm: () => void;
@@ -27,7 +28,7 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
   const { handleLogin } = useAuth();
 
   // Mutation
-  const mutation = useMutation(
+  const signupMutation = useMutation(
     (data: ISignup) =>
       signup(data.email, data.username, data.password, data.confirmPassword),
     {
@@ -50,8 +51,7 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
 
   const onSubmit: SubmitHandler<ISignup> = (data) => {
     const { email, username, password, confirmPassword } = data;
-    console.log(data);
-    mutation.mutate({ email, username, password, confirmPassword });
+    signupMutation.mutate({ email, username, password, confirmPassword });
   };
 
   return (
@@ -152,11 +152,16 @@ const SignupForm = ({ changeAuthForm }: IProps) => {
             </label>
           </div>
           <div className="flex justify-center">
-            <input
+            <button
               type="submit"
-              value="Sign up"
-              className="bg-emerald-500 cursor-pointer w-full md:w-2/3 lg:w-1/3 xl:w-1/4 text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
-            />
+              className="bg-emerald-500 cursor-pointer flex justify-center items-center w-full md:w-2/3 lg:w-1/3 xl:w-1/4 text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
+            >
+              {signupMutation.isLoading ? (
+                <ClipLoader color={"#fff"} loading={true} size={20} />
+              ) : (
+                "Signup"
+              )}
+            </button>
           </div>
         </form>
       </div>

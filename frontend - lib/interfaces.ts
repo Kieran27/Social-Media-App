@@ -23,3 +23,15 @@ export interface IPost {
   _v: number;
   _id: string;
 }
+
+export interface IComment {
+  author: TAuthor;
+  content: string;
+  lastUpdatedAt: string;
+  likes: string[];
+  postId: string;
+  replies: string[];
+  timestamp: string;
+  _v: number;
+  _id: string;
+}

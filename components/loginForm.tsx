@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useMutation } from "react-query";
+import { AxiosError } from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginSchema } from "../frontend - lib/yupSchemas";
 import { ILogin } from "../frontend - lib/interfaces";
+import { TLoginError } from "../frontend - lib/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import login from "../frontend - lib/axiosCalls/login";
 import toast, { Toaster } from "react-hot-toast";
-import { AxiosError } from "axios";
+import { ClipLoader } from "react-spinners";
 
 interface IProps {
   changeAuthForm: () => void;
@@ -28,14 +30,16 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
   const { handleLogin } = useAuth();
 
   // Mutation
-  const mutation = useMutation(
+  const loginMutation = useMutation(
     (data: ILogin) => login(data.email, data.password),
     {
       onSuccess: (data) => {
         handleLogin(data);
       },
-      onError: (error: AxiosError) => {
-        const message = error.response.data.error;
+      onError: (error: AxiosError<TLoginError>) => {
+        console.log(error);
+        const errorData = error as AxiosError;
+        const message = errorData.response.data.error;
         toast.error(`${message}.`, {
           id: "loginError",
         });
@@ -50,7 +54,7 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
 
   const onSubmit: SubmitHandler<ILogin> = (data) => {
     const { email, password } = data;
-    mutation.mutate({ email: email, password: password });
+    loginMutation.mutate({ email: email, password: password });
   };
 
   return (
@@ -111,11 +115,16 @@ const LoginForm = ({ changeAuthForm }: IProps) => {
             </label>
           </div>
           <div className="flex justify-center">
-            <input
+            <button
               type="submit"
-              value="Login"
-              className="bg-emerald-500 cursor-pointer w-full md:w-2/3 lg:w-1/3 xl:w-1/4 text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
-            />
+              className="bg-emerald-500 cursor-pointer w-full md:w-2/3 lg:w-1/3 xl:w-1/4 flex justify-center items-center text-white font-semibold py-2 px-6 rounded-2xl text-l hover:bg-emerald-300"
+            >
+              {loginMutation.isLoading ? (
+                <ClipLoader color={"#fff"} loading={true} size={20} />
+              ) : (
+                "Login"
+              )}
+            </button>
           </div>
         </form>
       </div>

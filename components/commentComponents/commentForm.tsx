@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { TCommentCreate } from "../../frontend - lib/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createCommentSchema } from "../../frontend - lib/yupSchemas";
 import { useAuth } from "../../hooks/useAuth";
 import { Toaster } from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 import useCreateComment from "../../hooks/useCreateComment";
 
-type TCommentCreate = {
-  commentContent: string;
-};
-
 type TProps = {
-  postId: any;
+  postId: string;
 };
 
 const CommentForm = ({ postId }: TProps) => {
@@ -69,7 +67,11 @@ const CommentForm = ({ postId }: TProps) => {
                   type="submit"
                   className="bg-emerald-500 text-white font-medium px-4 py-2 rounded-2xl hover:bg-emerald-300 flex items-center justify-center"
                 >
-                  Create Comment
+                  {isLoading ? (
+                    <ClipLoader color={"#fff"} loading={true} size={20} />
+                  ) : (
+                    "Create"
+                  )}
                 </button>
               </div>
             </footer>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "react-query";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import createComment from "../frontend - lib/axiosCalls/createComment";
 
@@ -10,6 +11,9 @@ type CommentData = {
 };
 
 const useCreateComment = () => {
+  // Router for refreshes
+  const router = useRouter();
+
   const { isLoading, mutate } = useMutation(
     (commentData: CommentData) =>
       createComment(
@@ -18,8 +22,8 @@ const useCreateComment = () => {
         commentData.userId
       ),
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
+        router.reload();
       },
       onError: (error: any) => {
         console.log(error);

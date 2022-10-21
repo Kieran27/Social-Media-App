@@ -49,7 +49,7 @@ handler
     try {
       const newComment = comment.create(
         {
-          $push: { author: user_id },
+          author: user_id,
           content: content,
           lastUpdatedAt: new Date().toISOString(),
           timestamp: new Date().toISOString(),

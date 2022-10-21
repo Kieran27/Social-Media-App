@@ -22,3 +22,15 @@ export type TToken = {
   iat: string;
   exp: string;
 };
+
+export type TLoginError = {
+  error: string;
+};
+
+export type TCommentCreate = {
+  commentContent: string;
+};
+
+export type TPostUpdate = {
+  updatedPostContent: string;
+};

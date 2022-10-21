@@ -6,6 +6,8 @@ import IndividualPost from "../../components/individualPost";
 import Comment from "../../components/commentComponents/comment";
 import CommentForm from "../../components/commentComponents/commentForm";
 import useIndividualPost from "../../hooks/useIndividualPost";
+import useGetComments from "../../hooks/useGetComments";
+import CommentsContainer from "../../components/commentComponents/commentsContainer";
 import EditPostForm from "../../components/postCreation/editPostForm";
 import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/router";
@@ -17,6 +19,9 @@ const IndividualPostPage = () => {
 
   // Custom hooks\
   const { user } = useAuth();
+  const { data, isLoading } = useGetComments(post_id);
+  const commentsData = data?.data.comments;
+  console.log(commentsData);
   const { individualPost, editFormOpen, toggleEditForm } = useIndividualPost(
     post_id,
     user?.id
@@ -58,11 +63,7 @@ const IndividualPostPage = () => {
                 <h3 className="mb-4 font-medium text-xl">
                   Comments ({postData?.comments.length})
                 </h3>
-                <div className="flex flex-col gap-5 transition-all">
-                  <Comment />
-                  <Comment />
-                  <Comment />
-                </div>
+                <CommentsContainer commentsData={commentsData} />
               </div>
             </section>
             <FriendSuggestions />

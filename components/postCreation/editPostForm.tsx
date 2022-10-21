@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { editPostSchema } from "../../frontend - lib/yupSchemas";
+import { TPostUpdate } from "../../frontend - lib/types";
 import { useAuth } from "../../hooks/useAuth";
 import { Toaster } from "react-hot-toast";
 import { IPost } from "../../frontend - lib/interfaces";
@@ -11,10 +12,6 @@ interface IProps {
   postId: string;
   toggleEditForm: () => void;
 }
-
-type TPostUpdate = {
-  updatedPostContent: string;
-};
 
 const EditPostForm = ({ postData, postId, toggleEditForm }: IProps) => {
   // Custom hooks

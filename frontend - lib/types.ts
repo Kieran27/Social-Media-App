@@ -23,6 +23,14 @@ export type TToken = {
   exp: string;
 };
 
+export type TLoginError = {
+  error: string;
+};
+
 export type TCommentCreate = {
   commentContent: string;
+};
+
+export type TPostUpdate = {
+  updatedPostContent: string;
 };

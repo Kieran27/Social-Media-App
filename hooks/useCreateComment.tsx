@@ -8,6 +8,7 @@ type CommentData = {
   content: string;
   userId: string | undefined;
   postId: string;
+  commentId?: string;
 };
 
 const useCreateComment = () => {
@@ -19,7 +20,8 @@ const useCreateComment = () => {
       createComment(
         commentData.postId,
         commentData.content,
-        commentData.userId
+        commentData.userId,
+        commentData.commentId
       ),
     {
       onSuccess: () => {

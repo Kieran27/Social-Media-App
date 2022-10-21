@@ -19,7 +19,11 @@ const createPostSchema = yup.object().shape({
 });
 
 const createCommentSchema = yup.object().shape({
-  commentContent: yup.string().required().min(1).max(750),
+  commentContent: yup.string().required().min(1).max(450),
+});
+
+const replySchema = yup.object().shape({
+  content: yup.string().required().min(1).max(250),
 });
 
 const editPostSchema = yup.object().shape({
@@ -31,5 +35,6 @@ export {
   loginSchema,
   createPostSchema,
   createCommentSchema,
+  replySchema,
   editPostSchema,
 };

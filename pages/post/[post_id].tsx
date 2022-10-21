@@ -59,7 +59,7 @@ const IndividualPostPage = () => {
                 />
               )}
               <CommentForm postId={post_id} />
-              <div className="gap-5 px-5 mt-5">
+              <div className="px-5 mt-5">
                 <h3 className="mb-4 font-medium text-xl">
                   Comments ({postData?.comments.length})
                 </h3>

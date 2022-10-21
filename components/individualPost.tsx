@@ -1,6 +1,5 @@
 import {
   IoChatbubbleOutline,
-  IoThumbsUpOutline,
   IoTrashOutline,
   IoPencilOutline,
 } from "react-icons/io5";
@@ -41,7 +40,7 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
             <div className="flex items-center gap-3">
               <div className="h-7 w-7 bg-emerald-500 rounded-full sm:hidden"></div>
               <span className="font-semibold tracking-wide text-lg">
-                {postData?.author[0].username}
+                {postData?.author.username}
               </span>
               <span className="text-lg"> | </span>
               <span className="text-gray-500 text-sm">

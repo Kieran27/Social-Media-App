@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { string } from "yup";
 
 const CommentSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "users" },
@@ -8,6 +9,7 @@ const CommentSchema = new Schema({
   timestamp: { type: Date, default: Date.now() },
   postId: { type: String },
   replies: [{ type: Schema.Types.ObjectId, ref: "comments" }],
+  parent: { type: String },
 });
 
 export default mongoose.models.comments ||

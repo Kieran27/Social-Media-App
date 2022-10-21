@@ -20,7 +20,7 @@ handler
     const { post_id } = query;
 
     comment
-      .find({ postId: post_id })
+      .find({ postId: post_id, parent: "none" })
       .sort({ timestamp: "descending" })
       .populate({ path: "author", model: user, select: "username" })
       .exec((err, data) => {
@@ -44,6 +44,7 @@ handler
 
     // Get params from req.body
     const { content, user_id, commentId } = req.body;
+    console.log(commentId);
 
     // Create new comment, grab its id within callback and update user's comments array
     // If req body included commentId add new Id to comment's replies array
@@ -56,26 +57,30 @@ handler
           timestamp: new Date().toISOString(),
           postId: post_id,
           replies: [],
+          parent: commentId ? "comment" : "none",
         },
-        async (error: any, comment: any) => {
+        async (error: any, newComment: any) => {
           if (error) {
             throw new Error(error);
           }
-          const newlyCreatedCommentId = comment._id;
+          const newlyCreatedCommentId = newComment._id;
           // Add newlyCreatedCommentId to user's comments array
           await user.findByIdAndUpdate(user_id, {
             $push: { comments: newlyCreatedCommentId },
           });
-          // Add newlyCreatedCommentId to original post's comment array
-          await post.findByIdAndUpdate(post_id, {
-            $push: { comments: newlyCreatedCommentId },
-          });
+
           // If commentId add id to parent
           if (commentId) {
             await comment.findByIdAndUpdate(commentId, {
               $push: { replies: newlyCreatedCommentId },
             });
+            return res.status(201).json({ newComment: comment });
           }
+          // Add newlyCreatedCommentId to original post's comment array
+          await post.findByIdAndUpdate(post_id, {
+            $push: { comments: newlyCreatedCommentId },
+          });
+
           return res.status(201).json({ newComment: comment });
         }
       );

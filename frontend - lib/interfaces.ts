@@ -14,12 +14,12 @@ export interface ILogin {
 }
 
 export interface IPost {
-  author: TAuthor[];
+  author: TAuthor;
   comments: TComments[];
   content: string;
   lastUpdatedAt: string;
   timestamp: string;
-  likes: any[];
+  likes: string[];
   _v: number;
   _id: string;
 }

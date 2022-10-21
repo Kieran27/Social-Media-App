@@ -42,10 +42,11 @@ handler
     const query = req.query;
     const { post_id } = query;
 
-    // Get user_id from req.body
-    const { content, user_id } = req.body;
+    // Get params from req.body
+    const { content, user_id, commentId } = req.body;
 
     // Create new comment, grab its id within callback and update user's comments array
+    // If req body included commentId add new Id to comment's replies array
     try {
       const newComment = comment.create(
         {
@@ -54,6 +55,7 @@ handler
           lastUpdatedAt: new Date().toISOString(),
           timestamp: new Date().toISOString(),
           postId: post_id,
+          replies: [],
         },
         async (error: any, comment: any) => {
           if (error) {
@@ -68,6 +70,12 @@ handler
           await post.findByIdAndUpdate(post_id, {
             $push: { comments: newlyCreatedCommentId },
           });
+          // If commentId add id to parent
+          if (commentId) {
+            await comment.findByIdAndUpdate(commentId, {
+              $push: { replies: newlyCreatedCommentId },
+            });
+          }
           return res.status(201).json({ newComment: comment });
         }
       );

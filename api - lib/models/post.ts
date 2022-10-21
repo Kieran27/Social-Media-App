@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const PostSchema = new Schema({
-  author: [{ type: Schema.Types.ObjectId, ref: "users" }],
+  author: { type: Schema.Types.ObjectId, ref: "users" },
   content: { type: String, minLength: 1, maxLength: 1500, required: true },
   likes: [{ type: Schema.Types.ObjectId, ref: "users", default: 0 }],
   lastUpdatedAt: { type: Date, default: Date.now() },

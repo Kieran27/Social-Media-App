@@ -4,11 +4,14 @@ import { useAuth } from "../../hooks/useAuth";
 import useGetComment from "../../hooks/useGetComment";
 import CommentDivider from "./commentDivider";
 import useLike from "../../hooks/useLike";
+import CommentReplyBody from "./commentReplyBody";
 import ReplyForm from "./replyForm";
+import useUpdateComment from "../../hooks/useUpdateComment";
 import EditComment from "./editComment";
+import CommentReplyFooter from "./commentReplyFooter";
 import { IComment } from "../../frontend - lib/interfaces";
 import { BiLike } from "react-icons/bi";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type TProps = {
   postId: string;
@@ -18,17 +21,22 @@ type TProps = {
 };
 
 const CommentReply = ({ postId, replyId, toggle, setCommentId }: TProps) => {
-  const [editShown, setEditShown] = useState(false);
-  // Custom hook
+  // Custom hook to get user data
   const { user } = useAuth();
+
+  // Custom hook to fetch comment
   const { isLoading, data } = useGetComment(postId, replyId);
   const replyData: IComment = data?.data.comment;
 
   // Custom hook to handle likes
   const { handleLike, likes, liked } = useLike(replyData);
 
-  // Component functions
-  const toggleEdit = () => [setEditShown((editShown) => !editShown)];
+  // Custom hook to determine comment edit component
+  const { editOpen, toggleEdit } = useUpdateComment();
+
+  if (!replyData) {
+    return <div>No Data</div>;
+  }
 
   if (replyData) {
     return (
@@ -38,42 +46,15 @@ const CommentReply = ({ postId, replyId, toggle, setCommentId }: TProps) => {
             <CommentDivider />
             <article className="flex gap-6 items-center relative sm:mb-3">
               <div className="h-12 min-w-[3rem] hidden bg-emerald-400 rounded-full sm:block"></div>
-              {editShown ? (
+              {editOpen ? (
                 <EditComment replyData={replyData} toggleEdit={toggleEdit} />
               ) : (
-                <div className="flex-grow bg-gray-100 rounded-3xl px-5 py-4">
-                  <header className="flex justify-between mb-2">
-                    <div className="flex items-center">
-                      <div className="h-5 w-5 bg-emerald-400 rounded-full sm:hidden mr-2"></div>
-                      <p className="text-sm font-semibold tracking-wide">
-                        {replyData.author.username} |
-                        <span className="text-gray-400 font-medium tracking-normal ml-2">
-                          {formatDate(replyData.timestamp)}
-                        </span>
-                      </p>
-                    </div>
-                    {user?.id === replyData.author._id && (
-                      <div className="hidden sm:flex gap-4">
-                        <button
-                          onClick={() => {
-                            setCommentId(replyData._id);
-                            toggle();
-                          }}
-                          className="hover:text-red-500"
-                        >
-                          <IoTrashOutline />
-                        </button>
-                        <button
-                          onClick={() => setEditShown(!editShown)}
-                          className="hover:text-emerald-500"
-                        >
-                          <IoPencilOutline />
-                        </button>
-                      </div>
-                    )}
-                  </header>
-                  <p className="text-sm">{replyData.content}</p>
-                </div>
+                <CommentReplyBody
+                  replyData={replyData}
+                  setCommentId={setCommentId}
+                  toggle={toggle}
+                  toggleEdit={toggleEdit}
+                />
               )}
               <div className="hidden sm:flex flex-col">
                 <button onClick={handleLike} className="text-xl">
@@ -82,30 +63,15 @@ const CommentReply = ({ postId, replyId, toggle, setCommentId }: TProps) => {
                 <span className="text-center text-xl">{likes}</span>
               </div>
             </article>
-            <footer className="flex justify-between px-2 ml-2 mb-1 sm:mb-0 sm:hidden">
-              <div className="flex gap-2">
-                <button onClick={handleLike} className="text-lg">
-                  <BiLike className={liked ? "text-red-500" : "text-black"} />
-                </button>
-                <span className="text-center text-lg">{likes}</span>
-              </div>
-              {user?.id === replyData.author._id && (
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => {
-                      setCommentId(replyData._id);
-                      toggle();
-                    }}
-                    className="hover:text-red-500"
-                  >
-                    <IoTrashOutline />
-                  </button>
-                  <button className="hover:text-emerald-500">
-                    <IoPencilOutline />
-                  </button>
-                </div>
-              )}
-            </footer>
+            <CommentReplyFooter
+              replyData={replyData}
+              handleLike={handleLike}
+              liked={liked}
+              likes={likes}
+              toggle={toggle}
+              toggleEdit={toggleEdit}
+              setCommentId={setCommentId}
+            />
 
             <ReplyForm commentId={replyData._id} postId={replyData.postId} />
           </div>

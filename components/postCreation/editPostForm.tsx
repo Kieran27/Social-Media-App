@@ -52,6 +52,7 @@ const EditPostForm = ({ postData, postId, toggleEditForm }: IProps) => {
           <footer className="flex justify-end items-center mt-3">
             <div className="flex gap-5">
               <button
+                type="button"
                 className="text-gray-700 hover:text-gray-400"
                 onClick={toggleEditForm}
               >

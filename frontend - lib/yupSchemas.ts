@@ -30,6 +30,10 @@ const editPostSchema = yup.object().shape({
   updatedPostContent: yup.string().required().min(1).max(1500),
 });
 
+const updatedCommentSchema = yup.object().shape({
+  updatedCommentContent: yup.string().required().min(1).max(450),
+});
+
 export {
   signupSchema,
   loginSchema,
@@ -37,4 +41,5 @@ export {
   createCommentSchema,
   replySchema,
   editPostSchema,
+  updatedCommentSchema,
 };

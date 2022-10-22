@@ -34,3 +34,13 @@ export type TCommentCreate = {
 export type TPostUpdate = {
   updatedPostContent: string;
 };
+
+export type TCommentUpdate = {
+  updatedCommentContent: string;
+};
+
+export type TUpdatedCommentData = {
+  updatedCommentContent: string;
+  postId: string;
+  commentId: string;
+};

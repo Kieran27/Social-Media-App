@@ -3,6 +3,8 @@ import { authenticate } from "../../../../../api - lib/middleware/authentication
 import dbConnect from "../../../../../api - lib/middleware/mongo_connect";
 import nextConnect from "next-connect";
 import comment from "../../../../../api - lib/models/comment";
+import { TToken } from "../../../../../frontend - lib/types";
+import jwt_decode from "jwt-decode";
 
 const handler = nextConnect();
 
@@ -16,35 +18,39 @@ handler
     // Query comment_id from req params
     const query = req.query;
     const { comment_id } = query;
-    const { user_id } = req.body;
+
+    // Decode token to get user_id
+    const token = req.headers.authorization;
+    // If token not found, send error message
+    if (!token) {
+      return res.status(401).json({ error: "Token not found!" });
+    }
+    const { id } = jwt_decode<TToken>(token);
 
     // Check if userId exists
-    if (!user_id) {
+    if (!id) {
       throw new Error("No User Id Provided!");
     }
 
     // Get selectedPost and return likes array
     try {
       const selectedPost = await comment.findById(comment_id);
-      const likesArray: string[] = selectedPost[0].likes;
+      const likesArray: string[] = selectedPost.likes;
 
       // Check if user_id exists within likes array and react accordingly
-      const userIdExists: boolean = likesArray.includes(user_id);
+      const userIdExists: boolean = likesArray.includes(id);
 
       // If id exists - remove id from array and update in db
       if (userIdExists) {
-        const filteredLikesArray: string[] = likesArray.filter(
-          (userId: string) => userId !== user_id
-        );
-
         const updatedPost = await comment.findByIdAndUpdate(comment_id, {
-          likes: filteredLikesArray,
+          $pull: { likes: id },
         });
 
         return res.status(200).json({ updatedPost });
       } else {
+        console.log("Mike");
         // If id doesn't exist - add id to end of array and update post
-        const updatedLikesArray = [...likesArray, user_id];
+        const updatedLikesArray = [...likesArray, id];
 
         const updatedPost = await comment.findByIdAndUpdate(comment_id, {
           likes: updatedLikesArray,
@@ -53,7 +59,7 @@ handler
         return res.status(200).json({ updatedPost });
       }
     } catch (error) {
-      return res.status(400).json({ error });
+      return res.status(400).json({ error: "Something went wrong" });
     }
   });
 

@@ -31,7 +31,7 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
   return (
     <>
       {isToggled && <DeletePost toggle={toggle} postId={postId} />}
-      <div className="w-full px-5 py-3 flex gap-8 border-b">
+      <article className="w-full px-5 py-3 flex gap-8 border-b">
         <div className="hidden sm:block">
           <div className="h-12 w-12 bg-emerald-500 rounded-full"></div>
         </div>
@@ -80,7 +80,7 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
             </button>
           </footer>
         </div>
-      </div>
+      </article>
     </>
   );
 };

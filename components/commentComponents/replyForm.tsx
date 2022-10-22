@@ -42,7 +42,7 @@ const ReplyForm = ({ commentId, postId }: TProps) => {
   };
 
   return (
-    <div className="mt-0">
+    <div className="mt-0 mb-3">
       <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input

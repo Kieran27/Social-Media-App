@@ -5,6 +5,8 @@ import post from "../../../../api - lib/models/post";
 import nextConnect from "next-connect";
 import comment from "../../../../api - lib/models/comment";
 import user from "../../../../api - lib/models/user";
+import { TToken } from "../../../../frontend - lib/types";
+import jwt_decode from "jwt-decode";
 
 const handler = nextConnect();
 
@@ -72,13 +74,35 @@ handler
     const query = req.query;
     const { post_id, comment_id } = query;
 
-    // Get user_id from req.body
-    const { user_id } = req.body;
+    // Decode token to get user_id
+    const token = req.headers.authorization;
+    // If token not found, send error message
+    if (!token) {
+      return res.status(401).json({ error: "Token not found!" });
+    }
+    const { id } = jwt_decode<TToken>(token);
 
+    console.log(post_id, comment_id, id);
+
+    // Use Comment Id to query comment being deleted
+    comment
+      .findById(comment_id)
+      .select("replies -_id")
+      .exec((err, data) => {
+        if (err) {
+          return res.status(400).json({ error: err });
+        }
+        console.log(data);
+        // Recusively call delete function until all child comments are deleted
+        return res.json({ comments: data });
+      });
+
+    /* 
+    
     // Delete comment and remove comment id from user's comments array and posts comments array
     try {
       await comment.findByIdAndDelete(comment_id);
-      await user.findByIdAndUpdate(user_id, {
+      await user.findByIdAndUpdate(id, {
         $pull: { comments: comment_id },
       });
       await post.findByIdAndUpdate(post_id, {
@@ -88,6 +112,7 @@ handler
     } catch (error) {
       return res.status(409).json({ error });
     }
+    */
   });
 
 export default handler;

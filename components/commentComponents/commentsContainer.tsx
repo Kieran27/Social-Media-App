@@ -1,17 +1,39 @@
 import Comment from "./comment";
+import DeleteCommentModal from "./deleteCommentModal";
+import useToggle from "../../hooks/useToggle";
 import { IComment } from "../../frontend - lib/interfaces";
+import { useState } from "react";
 
 type TProps = {
   commentsData: IComment[];
+  postId: string;
 };
 
-const CommentsContainer = ({ commentsData }: TProps) => {
+const CommentsContainer = ({ commentsData, postId }: TProps) => {
+  const [commentId, setCommentId] = useState("");
+  // Custom hook to handle deleteComment Modal display
+  const { isToggled, toggle } = useToggle();
   return (
-    <div className="flex flex-col gap-5 transition-all">
+    <>
       {commentsData?.map((comment) => {
-        return <Comment key={comment._id} commentData={comment} />;
+        return (
+          <Comment
+            key={comment._id}
+            commentData={comment}
+            toggle={toggle}
+            setCommentId={setCommentId}
+          />
+        );
       })}
-    </div>
+
+      {isToggled && (
+        <DeleteCommentModal
+          toggle={toggle}
+          postId={postId}
+          commentId={commentId}
+        />
+      )}
+    </>
   );
 };
 

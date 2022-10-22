@@ -7,7 +7,6 @@ import user from "../../../api - lib/models/user";
 import jwt_decode from "jwt-decode";
 import comment from "../../../api - lib/models/comment";
 import nextConnect from "next-connect";
-import { decode } from "punycode";
 
 const handler = nextConnect();
 

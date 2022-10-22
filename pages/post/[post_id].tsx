@@ -63,7 +63,10 @@ const IndividualPostPage = () => {
                 <h3 className="mb-4 font-medium text-xl">
                   Comments ({postData?.comments.length})
                 </h3>
-                <CommentsContainer commentsData={commentsData} />
+                <CommentsContainer
+                  commentsData={commentsData}
+                  postId={post_id}
+                />
               </div>
             </section>
             <FriendSuggestions />

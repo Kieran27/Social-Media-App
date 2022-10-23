@@ -4,6 +4,8 @@ import dbConnect from "../../../api - lib/middleware/mongo_connect";
 import post from "../../../api - lib/models/post";
 import user from "../../../api - lib/models/user";
 import nextConnect from "next-connect";
+import jwt_decode from "jwt-decode";
+import { TToken } from "../../../frontend - lib/types";
 import comment from "../../../api - lib/models/comment";
 
 const handler = nextConnect();
@@ -18,16 +20,32 @@ handler
     Extra -- Find Posts whose author ID matches User Id and posts
     that user is friends with
     */
-    post
-      .find()
-      .sort({ timestamp: "descending" })
-      .populate({ path: "author", model: user, select: "username" })
-      .exec((err, data) => {
-        if (err) {
-          return res.status(404).json({ error: err });
-        }
-        return res.json({ posts: data });
-      });
+    // Decode token to get user_id
+    const token = req.headers.authorization;
+    // If token not found, send error message
+    if (!token) {
+      return res.status(401).json({ error: "Token not found!" });
+    }
+    const { id } = jwt_decode<TToken>(token);
+
+    try {
+      // Get user details from id and filter for friends array
+      const friends = await user.findById(id).select("friends -_id");
+      // Mutate returned friendsArray by spreading and adding user id
+      const newFriends = [...friends.friends, id];
+
+      const posts = await post
+        /* 
+        Search for posts in which the author belongs to
+        either user or one of user's friends
+      */
+        .find({ author: { $in: newFriends } })
+        .sort({ timestamp: "descending" })
+        .populate({ path: "author", model: user, select: "username" });
+      return res.json({ posts });
+    } catch (error) {
+      return res.status(404).json({ error });
+    }
   })
 
   // Create New Post

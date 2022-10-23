@@ -10,7 +10,7 @@ const handler = nextConnect();
 
 handler
   .use(authenticate)
-  // Get All Comments of post
+  // Get all base comments of post
   .get(async (req: NextApiRequest, res: NextApiResponse) => {
     // Connect to db
     await dbConnect();
@@ -44,10 +44,10 @@ handler
 
     // Get params from req.body
     const { content, user_id, commentId } = req.body;
-    console.log(commentId);
 
-    // Create new comment, grab its id within callback and update user's comments array
+    // Create new comment, grab its id within callback
     // If req body included commentId add new Id to comment's replies array
+    // Add new comment id to original post's comments array
     try {
       const newComment = comment.create(
         {
@@ -64,17 +64,11 @@ handler
             throw new Error(error);
           }
           const newlyCreatedCommentId = newComment._id;
-          // Add newlyCreatedCommentId to user's comments array
-          await user.findByIdAndUpdate(user_id, {
-            $push: { comments: newlyCreatedCommentId },
-          });
-
           // If commentId add id to parent
           if (commentId) {
             await comment.findByIdAndUpdate(commentId, {
               $push: { replies: newlyCreatedCommentId },
             });
-            return res.status(201).json({ newComment: comment });
           }
           // Add newlyCreatedCommentId to original post's comment array
           await post.findByIdAndUpdate(post_id, {

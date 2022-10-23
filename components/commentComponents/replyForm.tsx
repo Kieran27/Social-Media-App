@@ -62,7 +62,10 @@ const ReplyForm = ({ commentId, postId }: TProps) => {
         )}
         {isToggled && (
           <div className="flex justify-end mt-2">
-            <button className="text-white bg-emerald-600 px-3" type="submit">
+            <button
+              className="text-white bg-emerald-600 px-3 rounded-lg"
+              type="submit"
+            >
               Reply
             </button>
           </div>

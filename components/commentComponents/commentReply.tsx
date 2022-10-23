@@ -34,8 +34,8 @@ const CommentReply = ({ postId, replyId, toggle, setCommentId }: TProps) => {
   // Custom hook to determine comment edit component
   const { editOpen, toggleEdit } = useUpdateComment();
 
-  if (!replyData) {
-    return <div>No Data</div>;
+  if (isLoading) {
+    return <div>Loading</div>;
   }
 
   if (replyData) {

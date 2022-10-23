@@ -22,7 +22,6 @@ handler
       .find()
       .sort({ timestamp: "descending" })
       .populate({ path: "author", model: user, select: "username" })
-      .populate({ path: "comments", model: comment })
       .exec((err, data) => {
         if (err) {
           return res.status(404).json({ error: err });

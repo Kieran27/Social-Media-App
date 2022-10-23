@@ -1,16 +1,14 @@
-import dbConnect from "./middleware/mongo_connect";
-import post from "./models/post";
-import nextConnect from "next-connect";
 import comment from "./models/comment";
-import user from "./models/user";
 
-const deleteReply = ( replyId: string, userId: string) => {
-  comment.findById(replyId).select("replies")      .exec((err, data) => {
-    // Recusively call delete function until all child comments are deleted
-    return res.json({ comments: data });
-  });
-
-  };
+const deleteReply = async (replyId: string, userId: string) => {
+  const repliesArray = await comment.findById(replyId).select("replies -_id");
+  if (repliesArray.length > 0) {
+    repliesArray.forEach((replyId: string) => {
+      deleteReply(replyId, userId);
+    });
+    await comment.findByIdAndDelete(replyId);
+  }
+  return await comment.findByIdAndDelete(replyId);
 };
 
 export default deleteReply;

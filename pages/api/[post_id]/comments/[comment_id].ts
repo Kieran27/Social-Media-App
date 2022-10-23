@@ -4,6 +4,7 @@ import dbConnect from "../../../../api - lib/middleware/mongo_connect";
 import post from "../../../../api - lib/models/post";
 import nextConnect from "next-connect";
 import comment from "../../../../api - lib/models/comment";
+import deleteReply from "../../../../api - lib/deleteReply";
 import user from "../../../../api - lib/models/user";
 import { TToken } from "../../../../frontend - lib/types";
 import jwt_decode from "jwt-decode";
@@ -82,20 +83,21 @@ handler
     }
     const { id } = jwt_decode<TToken>(token);
 
-    console.log(post_id, comment_id, id);
-
-    // Use Comment Id to query comment being deleted
-    comment
+    // Use Comment Id to query comment being deleted and get replies array
+    const commentReplies = await comment
       .findById(comment_id)
-      .select("replies -_id")
-      .exec((err, data) => {
-        if (err) {
-          return res.status(400).json({ error: err });
-        }
-        console.log(data);
-        // Recusively call delete function until all child comments are deleted
-        return res.json({ comments: data });
+      .select("replies -_id");
+
+    console.log(commentReplies);
+
+    // Loop over replies array
+    if (commentReplies.length > 0) {
+      commentReplies.forEach((replyId: string) => {
+        deleteReply(replyId, id);
       });
+
+      return res.status(200).json({ message: `Comment ${comment_id} Deleted` });
+    }
 
     /* 
     

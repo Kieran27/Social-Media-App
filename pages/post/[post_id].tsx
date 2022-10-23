@@ -21,7 +21,6 @@ const IndividualPostPage = () => {
   const { user } = useAuth();
   const { data, isLoading } = useGetComments(post_id);
   const commentsData = data?.data.comments;
-  console.log(commentsData);
   const { individualPost, editFormOpen, toggleEditForm } = useIndividualPost(
     post_id,
     user?.id

@@ -6,6 +6,7 @@ import {
 import { BiLike } from "react-icons/bi";
 import formatDate from "../frontend - lib/formatDate";
 import { IPost } from "../frontend - lib/interfaces";
+import { IComment } from "../frontend - lib/interfaces";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import DeletePost from "./postCreation/deletePost";

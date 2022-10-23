@@ -5,9 +5,9 @@ import {
 } from "react-icons/io5";
 import { BiLike } from "react-icons/bi";
 import { IPost } from "../frontend - lib/interfaces";
-import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import DeletePost from "./postCreation/deletePost";
+import useLikePost from "../hooks/useLikePost";
 import useToggle from "../hooks/useToggle";
 
 interface IProps {
@@ -17,15 +17,12 @@ interface IProps {
 }
 
 const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
-  const [liked, setLiked] = useState(false);
-
   // Custom hooks
   const { user } = useAuth();
   const { toggle, isToggled } = useToggle();
 
-  const likePost = () => {
-    setLiked((liked) => !liked);
-  };
+  // Custom hook to handle likes
+  const { handleLike, likes, liked } = useLikePost(postData);
 
   return (
     <>
@@ -69,13 +66,13 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
               <span>{postData?.comments?.length}</span>
             </div>
             <button
-              onClick={likePost}
+              onClick={handleLike}
               className="flex items-center gap-3 text-xl text-gray-700"
             >
               <BiLike
                 className={liked ? "text-orange-500 animate-wiggle" : ""}
               />
-              <span>{postData?.likes?.length || 0}</span>
+              <span>{likes}</span>
             </button>
           </footer>
         </div>

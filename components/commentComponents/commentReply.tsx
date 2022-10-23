@@ -1,4 +1,3 @@
-import { useAuth } from "../../hooks/useAuth";
 import useGetComment from "../../hooks/useGetComment";
 import CommentDivider from "./commentDivider";
 import useLike from "../../hooks/useLike";
@@ -19,9 +18,6 @@ type TProps = {
 };
 
 const CommentReply = ({ postId, replyId, toggle, setCommentId }: TProps) => {
-  // Custom hook to get user data
-  const { user } = useAuth();
-
   // Custom hook to fetch comment
   const { isLoading, data } = useGetComment(postId, replyId);
   const replyData: IComment = data?.data.comment;

@@ -1,6 +1,3 @@
-import { IoTrashOutline, IoPencilOutline } from "react-icons/io5";
-import formatDate from "../../frontend - lib/formatDate";
-import { useAuth } from "../../hooks/useAuth";
 import ReplyForm from "./replyForm";
 import CommentReply from "./commentReply";
 import { IComment } from "../../frontend - lib/interfaces";
@@ -9,8 +6,9 @@ import { BiLike } from "react-icons/bi";
 import useUpdateComment from "../../hooks/useUpdateComment";
 import CommentReplyBody from "./commentReplyBody";
 import EditComment from "./editComment";
+import { Toaster } from "react-hot-toast";
 import CommentReplyFooter from "./commentReplyFooter";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type TProps = {
   commentData: IComment;
@@ -19,9 +17,6 @@ type TProps = {
 };
 
 const Comment = ({ commentData, toggle, setCommentId }: TProps) => {
-  // Custom hook to get user details
-  const { user } = useAuth();
-
   // Custom hook to handle likes
   const { handleLike, likes, liked } = useLike(commentData);
 
@@ -77,6 +72,7 @@ const Comment = ({ commentData, toggle, setCommentId }: TProps) => {
           <ReplyForm commentId={commentData._id} postId={commentData.postId} />
         </div>
       </section>
+      <Toaster />
     </>
   );
 };

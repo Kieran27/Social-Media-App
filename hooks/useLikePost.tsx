@@ -3,6 +3,7 @@ import likePost from "../frontend - lib/axiosCalls/likePost";
 import { useMutation } from "react-query";
 import { useAuth } from "./useAuth";
 import { IPost } from "../frontend - lib/interfaces";
+import { toast } from "react-hot-toast";
 
 const useLikePost = (postData: IPost) => {
   const { user } = useAuth();
@@ -12,8 +13,10 @@ const useLikePost = (postData: IPost) => {
   const { isLoading, mutate } = useMutation(
     (commentId: string) => likePost(commentId),
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onError: () => {
+        toast.error("Something went wrong...", {
+          id: "postLikeError",
+        });
       },
     }
   );

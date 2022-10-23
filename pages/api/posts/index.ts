@@ -43,25 +43,13 @@ handler
     }
     // Create newPost and update db
     try {
-      const newPost = await post.create(
-        {
-          author: user_id,
-          content: content,
-          lastUpdatedAt: new Date().toISOString(),
-          timestamp: new Date().toISOString(),
-        },
-        async (error: any, post: any) => {
-          if (error) {
-            throw new Error(error);
-          }
-          const newlyCreatedPostId = post._id;
-          // Add newlyCreatedPostId to user's post array
-          await user.findByIdAndUpdate(user_id, {
-            $push: { posts: newlyCreatedPostId },
-          });
-          return res.status(201).json({ newPost: post });
-        }
-      );
+      const newPost = await post.create({
+        author: user_id,
+        content: content,
+        lastUpdatedAt: new Date().toISOString(),
+        timestamp: new Date().toISOString(),
+      });
+      return res.status(201).json({ newPost: post });
     } catch (error) {
       return res.status(409).json({ error });
     }

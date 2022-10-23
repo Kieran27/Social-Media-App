@@ -6,6 +6,7 @@ import {
 import { BiLike } from "react-icons/bi";
 import { IPost } from "../frontend - lib/interfaces";
 import { useAuth } from "../hooks/useAuth";
+import { Toaster } from "react-hot-toast";
 import DeletePost from "./postCreation/deletePost";
 import useLikePost from "../hooks/useLikePost";
 import useToggle from "../hooks/useToggle";
@@ -77,6 +78,7 @@ const IndividualPost = ({ postData, postId, toggleEditForm }: IProps) => {
           </footer>
         </div>
       </article>
+      <Toaster />
     </>
   );
 };

@@ -3,7 +3,7 @@ import HomepageHeader from "../../components/homepageHeader";
 import ProfileWidget from "../../components/profileWidget";
 import FriendSuggestions from "../../components/friendSuggestions";
 import IndividualPost from "../../components/individualPost";
-import Comment from "../../components/commentComponents/comment";
+import NoComments from "../../components/commentComponents/noComments";
 import CommentForm from "../../components/commentComponents/commentForm";
 import useIndividualPost from "../../hooks/useIndividualPost";
 import useGetComments from "../../hooks/useGetComments";
@@ -62,10 +62,14 @@ const IndividualPostPage = () => {
                 <h3 className="mb-4 font-medium text-xl">
                   Comments ({postData?.comments.length})
                 </h3>
-                <CommentsContainer
-                  commentsData={commentsData}
-                  postId={post_id}
-                />
+                {!commentsData?.length ? (
+                  <NoComments />
+                ) : (
+                  <CommentsContainer
+                    commentsData={commentsData}
+                    postId={post_id}
+                  />
+                )}
               </div>
             </section>
             <FriendSuggestions />

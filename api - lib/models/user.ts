@@ -7,8 +7,6 @@ const UserSchema = new Schema({
   profileImg: { type: String },
   friends: [{ type: Schema.Types.ObjectId, ref: "users" }],
   friendRequests: [{ type: Schema.Types.ObjectId, ref: "users" }],
-  posts: [{ type: Schema.Types.ObjectId, ref: "posts" }],
-  comments: [{ type: Schema.Types.ObjectId, ref: "comments" }],
   joinedOn: { type: String, default: new Date().toISOString() },
 });
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import likeComment from "../frontend - lib/axiosCalls/likeComment";
 import { useMutation } from "react-query";
+import { toast } from "react-hot-toast";
 import { useAuth } from "./useAuth";
 import { IComment } from "../frontend - lib/interfaces";
 
@@ -12,8 +13,10 @@ const useLike = (commentData: IComment) => {
   const { isLoading, mutate } = useMutation(
     (commentId: string) => likeComment(commentId),
     {
-      onSuccess: (data) => {
-        console.log(data);
+      onError: () => {
+        toast.error("Something went wrong...", {
+          id: "commentLikeError",
+        });
       },
     }
   );

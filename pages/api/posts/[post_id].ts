@@ -55,11 +55,6 @@ handler
       // Find and delete all comments with corresponding postId
       await comment.deleteMany({ postId: post_id });
 
-      // Find and delete post_id from user's posts array
-      await user.findByIdAndUpdate(id, {
-        $pull: { posts: post_id },
-      });
-
       res.status(200).json({ message: `Post ${post_id} Deleted!` });
     } catch (error) {
       res.status(409).json({ error });

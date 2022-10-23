@@ -6,6 +6,7 @@ import ReplyForm from "./replyForm";
 import useUpdateComment from "../../hooks/useUpdateComment";
 import EditComment from "./editComment";
 import CommentReplyFooter from "./commentReplyFooter";
+import { Toaster } from "react-hot-toast";
 import { IComment } from "../../frontend - lib/interfaces";
 import { BiLike } from "react-icons/bi";
 import { Dispatch, SetStateAction } from "react";
@@ -82,6 +83,7 @@ const CommentReply = ({ postId, replyId, toggle, setCommentId }: TProps) => {
             );
           })}
         </div>
+        <Toaster />
       </>
     );
   }

@@ -1,5 +1,3 @@
-import { IoTrashOutline, IoPencilOutline } from "react-icons/io5";
-import formatDate from "../../frontend - lib/formatDate";
 import { useAuth } from "../../hooks/useAuth";
 import useGetComment from "../../hooks/useGetComment";
 import CommentDivider from "./commentDivider";

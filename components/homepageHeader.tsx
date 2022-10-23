@@ -1,11 +1,9 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import BirdImage from "../assets/birb.svg";
 import ProfilePopup from "./profilePopup";
 import FriendRequestCount from "./friendRequestCount";
 import FriendRequestsPopup from "./friendRequestsPopup";
-import { IoIosPerson, IoIosChatbubbles } from "react-icons/io";
+import { IoIosChatbubbles } from "react-icons/io";
 import { IoPeople, IoPerson } from "react-icons/io5";
 
 const HomepageHeader = () => {
@@ -32,8 +30,8 @@ const HomepageHeader = () => {
   };
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 max-w-[100rem] mx-auto">
-      <div className="flex items-center justify-center sm:justify-start w-full">
+    <header className="flex justify-between items-center px-3 sm:px-6 py-4 max-w-[100rem] mx-auto">
+      <div className="flex items-center justify-start w-full">
         <Link href="/home" className="cursor-pointer">
           <a>
             <h1 className="text-3xl font-semibold tracking-wider">
@@ -42,7 +40,7 @@ const HomepageHeader = () => {
           </a>
         </Link>
       </div>
-      <div className="hidden sm:block">
+      <div className="block">
         <ul className="flex items-center gap-5">
           <li className="relative">
             <button
@@ -54,6 +52,7 @@ const HomepageHeader = () => {
             </button>
             <FriendRequestCount />
           </li>
+          {/* 
           <li>
             <button
               aria-label="messages"
@@ -62,6 +61,7 @@ const HomepageHeader = () => {
               <IoIosChatbubbles className="text-xl" />
             </button>
           </li>
+          */}
           <li>
             <div className="relative">
               <button

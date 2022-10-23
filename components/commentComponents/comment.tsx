@@ -6,6 +6,10 @@ import CommentReply from "./commentReply";
 import { IComment } from "../../frontend - lib/interfaces";
 import useLike from "../../hooks/useLike";
 import { BiLike } from "react-icons/bi";
+import useUpdateComment from "../../hooks/useUpdateComment";
+import CommentReplyBody from "./commentReplyBody";
+import EditComment from "./editComment";
+import CommentReplyFooter from "./commentReplyFooter";
 import { Dispatch, SetStateAction, useState } from "react";
 
 type TProps = {
@@ -19,7 +23,10 @@ const Comment = ({ commentData, toggle, setCommentId }: TProps) => {
   const { user } = useAuth();
 
   // Custom hook to handle likes
-  const { isLoading, mutate, handleLike, likes, liked } = useLike(commentData);
+  const { handleLike, likes, liked } = useLike(commentData);
+
+  // Custom hook to determine comment edit component
+  const { editOpen, toggleEdit } = useUpdateComment();
 
   return (
     <>
@@ -27,36 +34,16 @@ const Comment = ({ commentData, toggle, setCommentId }: TProps) => {
         <article className="flex flex-col">
           <div className="flex gap-6 items-center">
             <div className="h-12 min-w-[3rem] hidden bg-emerald-400 rounded-full sm:block"></div>
-            <div className="flex-grow bg-gray-100 rounded-3xl px-5 py-4">
-              <header className="flex justify-between mb-2">
-                <div className="flex items-center">
-                  <div className="h-5 w-5 bg-emerald-400 rounded-full sm:hidden mr-2"></div>
-                  <p className="text-sm font-semibold tracking-wide">
-                    {commentData.author.username} |
-                    <span className="text-gray-400 font-medium tracking-normal ml-2">
-                      {formatDate(commentData.timestamp)}
-                    </span>
-                  </p>
-                </div>
-                {user?.id === commentData.author._id && (
-                  <div className="hidden sm:flex gap-4">
-                    <button
-                      onClick={() => {
-                        setCommentId(commentData._id);
-                        toggle();
-                      }}
-                      className="hover:text-red-500"
-                    >
-                      <IoTrashOutline />
-                    </button>
-                    <button className="hover:text-emerald-500">
-                      <IoPencilOutline />
-                    </button>
-                  </div>
-                )}
-              </header>
-              <p className="text-sm">{commentData.content}</p>
-            </div>
+            {editOpen ? (
+              <EditComment replyData={commentData} toggleEdit={toggleEdit} />
+            ) : (
+              <CommentReplyBody
+                replyData={commentData}
+                setCommentId={setCommentId}
+                toggle={toggle}
+                toggleEdit={toggleEdit}
+              />
+            )}
             <div className="hidden sm:flex flex-col">
               <button onClick={handleLike} className="text-xl">
                 <BiLike className={liked ? "text-red-500" : "text-black"} />
@@ -64,30 +51,15 @@ const Comment = ({ commentData, toggle, setCommentId }: TProps) => {
               <span className="text-center text-xl">{likes}</span>
             </div>
           </div>
-          <footer className="flex justify-between px-2 sm:hidden">
-            <div className="flex gap-2">
-              <button className="text-lg" onClick={handleLike}>
-                <BiLike className={liked ? "text-red-500" : "text-black"} />
-              </button>
-              <span className="text-center text-lg"> {likes}</span>
-            </div>
-            {user?.id === commentData.author._id && (
-              <div className="flex gap-4">
-                <button
-                  onClick={() => {
-                    setCommentId(commentData._id);
-                    toggle();
-                  }}
-                  className="hover:text-red-500"
-                >
-                  <IoTrashOutline />
-                </button>
-                <button className="hover:text-emerald-500">
-                  <IoPencilOutline />
-                </button>
-              </div>
-            )}
-          </footer>
+          <CommentReplyFooter
+            replyData={commentData}
+            handleLike={handleLike}
+            liked={liked}
+            likes={likes}
+            toggle={toggle}
+            toggleEdit={toggleEdit}
+            setCommentId={setCommentId}
+          />
         </article>
         {/* if comment has replies - map over ids and fetch */}
         {commentData.replies.map((replyId) => {

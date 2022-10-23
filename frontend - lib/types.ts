@@ -44,3 +44,9 @@ export type TUpdatedCommentData = {
   postId: string;
   commentId: string;
 };
+
+export type TUserStat = {
+  friends: string[];
+  username: string;
+  _id: string;
+};

@@ -19,13 +19,19 @@ handler
     const query = req.query;
     const { user_id } = query;
 
+    // Query user info
     try {
-      const userProfile = await post
+      const userProfile = await user
         .findById(user_id)
-        .populate({ path: "author", model: user, select: "username" })
-        .populate({ path: "comments", model: comment });
+        .select("username friends");
 
-      res.json({ post: userProfile });
+      // Query all posts and comments that correspond to user id
+      const userPosts = await post.find({ author: user_id }).select("_id");
+      const userComments = await comment
+        .find({ author: user_id })
+        .select("_id");
+
+      res.json({ userProfile, userPosts, userComments });
     } catch (error) {
       res.status(409).json({ error });
     }

@@ -41,14 +41,14 @@ const EditComment = ({ replyData, toggleEdit }: TProps) => {
   };
   return (
     <>
-      <div className="flex-grow bg-gray-100 rounded-3xl px-5 py-4 text-sm">
+      <div className="flex-grow bg-gray-100 rounded-3xl px-5 py-4 text-sm outline outline-1 outline-gray-500">
         <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register("updatedCommentContent")}
-            className="bg-inherit w-full py-2 focus:outline-none"
+            className="bg-inherit w-full focus:outline-none"
             type="text"
           />
-          <footer className="flex justify-end items-center mt-3">
+          <footer className="flex justify-end items-center">
             <div className="flex gap-5">
               <button
                 onClick={toggleEdit}

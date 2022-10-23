@@ -1,5 +1,6 @@
 import { useAuth } from "../hooks/useAuth";
 import { useRef } from "react";
+import { Dispatch, SetStateAction } from "react";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import {
   IoPeople,

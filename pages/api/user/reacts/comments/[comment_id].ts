@@ -48,7 +48,6 @@ handler
 
         return res.status(200).json({ updatedPost });
       } else {
-        console.log("Mike");
         // If id doesn't exist - add id to end of array and update post
         const updatedLikesArray = [...likesArray, id];
 

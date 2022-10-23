@@ -1,4 +1,4 @@
-import { TComments } from "./types";
+import { TComments, TUserStat } from "./types";
 import { TAuthor } from "./types";
 
 export interface ISignup {
@@ -34,4 +34,10 @@ export interface IComment {
   timestamp: string;
   _v: number;
   _id: string;
+}
+
+export interface IUserStats {
+  userComments: string[];
+  userPosts: string[];
+  userProfile: TUserStat;
 }
